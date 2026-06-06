@@ -8,11 +8,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col">
     <div class="navbar shadow-sm bg-blue-600 text-white">
         <a class="btn btn-ghost text-xl">Help-Desk</a>
     </div>
-    <main class="flex flex-col items-center">
+    <main class="flex flex-col items-center justify-center flex-1">
         @yield('content')
     </main>
 </body>
