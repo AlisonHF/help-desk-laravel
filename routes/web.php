@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,8 +9,7 @@ Route::get('/', function () {
 });
 
 /** Auth */
-Route::get('/login', [AuthController::class, 'index'])->name('login');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
 
-/** Home */
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware(Authenticate::class)->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});

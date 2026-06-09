@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.3",
         "blade-ui-kit/blade-heroicons": "*",
+        "laravel/fortify": "*",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0"
     },

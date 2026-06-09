@@ -29,6 +29,18 @@
             <h2 class="font-bold">Histórico de chamados</h2>
         </div>
     </x-card-home>
+
+    <form class="contents" method="POST" action="{{ route('logout') }}">
+        @csrf
+        <x-card-home class="bg-error text-white text-center">
+            <div>
+                <x-heroicon-o-arrow-left-end-on-rectangle class="size-11 mr-3" />
+            </div>
+            <div>
+                <button type="submit" class="font-bold">Sair</button>
+            </div>
+        </x-card-home>
+    </form>
 </div>
 
 @endsection

@@ -15,4 +15,10 @@ class AuthController extends Controller
     {
         return view('Auth.register');
     }
+
+    public function store(Request $request)
+    {
+        $dados = $request->only(['name', 'email', 'password']);
+        dd($dados);
+    }
 }
