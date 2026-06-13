@@ -8,17 +8,11 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('Auth.login');
+        return view('auth.login');
     }
 
     public function register()
     {
-        return view('Auth.register');
-    }
-
-    public function store(Request $request)
-    {
-        $dados = $request->only(['name', 'email', 'password']);
-        dd($dados);
+        return view('auth.register');
     }
 }
