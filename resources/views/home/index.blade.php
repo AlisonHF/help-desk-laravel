@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="flex gap-5">
-    <a href="{{ route('chamados.new') }}">
+    <a href="{{ route('ticket.new') }}">
         <x-card-home class="bg-blue-600 text-white">
             <div>
                 <x-heroicon-o-plus-circle class="size-11 mr-3" />
@@ -23,7 +23,7 @@
         </div>
     </x-card-home>
 
-    <a href="{{ route('chamados') }}">
+    <a href="{{ route('ticket.list') }}">
         <x-card-home class="bg-accent text-white text-center">
             <div>
                 <x-heroicon-o-archive-box class="size-11 mr-3" />

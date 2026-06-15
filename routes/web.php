@@ -13,6 +13,9 @@ Route::get('/', [AuthController::class, 'index']);
 Route::middleware(Authenticate::class)->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/chamados', [TicketController::class, 'list'])->name('chamados');
-    Route::get('/chamados/new', [TicketController::class, 'new'])->name('chamados.new');
+    Route::get('/ticket', [TicketController::class, 'list'])->name('ticket.list');
+    Route::get('/ticket/new', [TicketController::class, 'new'])->name('ticket.new');
+
+    Route::post('ticket/store', [TicketController::class, 'store'])->name('ticket.store');
+
 });
