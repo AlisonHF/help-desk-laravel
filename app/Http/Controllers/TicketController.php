@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserPositions;
 use App\Models\Category;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+    private int $user_id;
+
+    public function __construct()
+    {
+        $this->user_id = auth()->id();
+    }
+
     public function new()
     {
         $categories = Category::all();
@@ -23,7 +32,7 @@ class TicketController extends Controller
             'category_id' => ['required']
         ]);
 
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = $this->user_id;
 
         $ticket = Ticket::create($data);
 
@@ -32,6 +41,22 @@ class TicketController extends Controller
 
     public function list()
     {
-        return view('ticket.list');
+        $tickets = null;
+
+        $user = User::find($this->user_id);
+
+        switch ($user->position) {
+            case UserPositions::Admin->value:
+                $tickets = Ticket::get();
+                break;
+            case UserPositions::Technician->value:
+                $tickets = Ticket::where('technician_id', $this->user_id)->get();
+                break;
+            default:
+                $tickets = Ticket::where('user_id', $this->user_id)->get();
+                break;
+        }
+
+        return view('ticket.list', ['tickets' => $tickets]);
     }
 }
