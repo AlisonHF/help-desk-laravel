@@ -23,12 +23,12 @@
         @enderror
 
         <div class="text-center m-3">
-            <a href="#" class="text-blue-600 block">Esqueceu sua senha?</a>
-            <span class="inline">Não tem uma conta? <a href="{{ Route('register') }}" class="text-blue-600">cadastre-se</a></span>
+            <a href="#" class="text-blue-600 block hover:underline">Esqueceu sua senha?</a>
+            <span class="inline">Não tem uma conta? <a href="{{ Route('register') }}" class="text-blue-600 hover:underline">cadastre-se</a></span>
         </div>
 
         <div class="flex mt-2 w-50">
-            <button type="submit" class="btn bg-blue-600 text-white w-full">Login</button>
+            <button type="submit" class="btn bg-success-content text-white w-full">Login</button>
         </div>
     </form>
 </x-card-auth>
