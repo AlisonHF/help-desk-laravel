@@ -21,7 +21,22 @@ class TicketController extends Controller
     {
         $categories = Category::all();
 
-        return view('ticket.edit', ['categories' => $categories]);
+        $breadcrumbs = [
+            ['href' => route('home'), 'name' => 'Home'],
+            ['href' => route('ticket.list'), 'name' => 'Chamados'],
+            ['href' => '', 'name' => 'Novo chamado'],
+        ];
+
+        $namePage = 'Abrir chamado';
+
+        return view(
+            'ticket.edit',
+            [
+                'categories' => $categories,
+                'breadcrumbs' => $breadcrumbs,
+                'namePage' => $namePage
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -41,6 +56,13 @@ class TicketController extends Controller
 
     public function list()
     {
+        $breadcrumbs = [
+            ['href' => route('home'), 'name' => 'Home'],
+            ['href' => '', 'name' => 'Chamados'],
+        ];
+
+        $namePage = 'Listagem de chamados';
+
         $tickets = null;
 
         $user = User::find($this->user_id);
@@ -57,6 +79,13 @@ class TicketController extends Controller
                 break;
         }
 
-        return view('ticket.list', ['tickets' => $tickets]);
+        return view(
+            'ticket.list',
+            [
+                'tickets' => $tickets,
+                'breadcrumbs' => $breadcrumbs,
+                'namePage' => $namePage
+            ]
+        );
     }
 }

@@ -9,10 +9,28 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-    <div class="navbar shadow-sm bg-blue-600 text-white">
-        <a class="btn btn-ghost text-xl">Help-Desk</a>
+    <div class="navbar shadow-sm bg-neutral text-white">
+        <a href="{{ route('home') }}" class="btn btn-ghost text-xl">Help-Desk</a>
     </div>
-    <main class="flex flex-col items-center justify-center flex-1">
+
+    @if (isset($namePage))
+        <div>
+            <h2 class="text-3xl my-5 mx-5 text-center">{{ $namePage }}</h2>
+            <hr class="mx-10 my-4 border-t border-base-300" />
+        </div>
+    @endif
+
+    @if(!empty($breadcrumbs))
+        <div class="breadcrumbs text-sm flex justify-center mb-10">
+            <ul>
+            @foreach($breadcrumbs as $breadcrumb)
+                <li><a href="{{ $breadcrumb['href'] }}">{{ $breadcrumb['name'] }}</a></li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <main class="flex flex-col items-center flex-1">
         @yield('content')
     </main>
 </body>

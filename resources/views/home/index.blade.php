@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="flex gap-5">
+<div class="flex justify-center items-center gap-5 my-20">
     <a href="{{ route('ticket.new') }}">
-        <x-card-home class="bg-blue-600 text-white">
+        <x-card-home class="bg-info-content text-white">
             <div>
                 <x-heroicon-o-plus-circle class="size-11 mr-3" />
             </div>
@@ -14,7 +14,7 @@
         </x-card-home>
     </a>
 
-    <x-card-home class="bg-info text-white text-center">
+    <x-card-home class="bg-neutral text-white text-center">
         <div>
             <x-heroicon-o-chat-bubble-bottom-center class="size-11 mr-3" />
         </div>
@@ -24,7 +24,7 @@
     </x-card-home>
 
     <a href="{{ route('ticket.list') }}">
-        <x-card-home class="bg-accent text-white text-center">
+        <x-card-home class="bg-success-content text-white text-center">
             <div>
                 <x-heroicon-o-archive-box class="size-11 mr-3" />
             </div>
@@ -37,7 +37,7 @@
     <form class="contents" method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit">
-            <x-card-home class="bg-error text-white text-center hover:cursor-pointer">
+            <x-card-home class="bg-error-content text-white text-center hover:cursor-pointer">
                 <div>
                     <x-heroicon-o-arrow-left-end-on-rectangle class="size-11 mr-3" />
                 </div>

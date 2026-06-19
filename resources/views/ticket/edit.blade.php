@@ -1,16 +1,7 @@
 @extends('Layouts.master')
 
 @section('content')
-<div class="text-lg divider my-6">
-        @if(isset($chamado))
-            Editar chamado
-        @else
-            Abrir chamado
-        @endif
-    </h1>
-</div>
-
-<form method="POST" action="{{ route('ticket.store') }}" class="flex flex-col items-center m-5 rounded-2xl shadow-sm/50 p-5 w-200 h-120">
+<form method="POST" action="{{ route('ticket.store') }}" class="flex flex-col items-center rounded-2xl shadow-sm/50 p-5 w-200 h-120">
     @csrf
     <fieldset class="fieldset w-full px-20">
         <legend class="fieldset-legend">Titulo</legend>
@@ -44,7 +35,7 @@
     </fieldset>
 
     <div class="flex mt-5 w-50">
-        <button type="submit" class="btn bg-success text-white w-full">Enviar</button>
+        <button type="submit" class="btn bg-success-content text-white w-full">Enviar</button>
     </div>
 </form>
 
