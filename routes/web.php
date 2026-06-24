@@ -18,5 +18,6 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
     Route::get('/ticket/edit/{id}', [TicketController::class, 'edit'])->name('ticket.edit');
     Route::patch('/ticket/update/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
+    Route::delete('/ticket/delete/{id}', [TicketController::class, 'delete'])->name('ticket.delete');
 
 });

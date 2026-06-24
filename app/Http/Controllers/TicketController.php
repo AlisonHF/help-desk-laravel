@@ -123,4 +123,11 @@ class TicketController extends Controller
 
         return redirect('ticket');
     }
+
+    public function delete(int $id)
+    {
+        Ticket::findOrFail($id)->delete();
+
+        return redirect('ticket');
+    }
 }

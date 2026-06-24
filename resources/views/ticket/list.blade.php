@@ -8,7 +8,13 @@
                 <h2 class="card-title">{{ $ticket->title }}</h2>
                 <p>{{ $ticket->description }}</p>
                 <div class="card-actions">
-                    <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn">Visualizar</a>                  
+                    <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-info">Visualizar</a>
+                    
+                    <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-error" type="submit">Excluir</button>
+                    </form>
                 </div>
             </div>
         </div>
