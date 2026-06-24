@@ -6,7 +6,9 @@ use App\Enums\UserPositions;
 use App\Models\Category;
 use App\Models\Ticket;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TicketController extends Controller
 {
@@ -47,11 +49,21 @@ class TicketController extends Controller
             'category_id' => ['required']
         ]);
 
-        $data['user_id'] = $this->user_id;
+        try {
+            $data['user_id'] = $this->user_id;
+    
+            $ticket = Ticket::create($data);
 
-        $ticket = Ticket::create($data);
+            Log::info("Ticket: $ticket->id | criado pelo usuario: $this->user_id");
+    
+            return redirect()->route('ticket.list')->with('success', 'Chamado cadastrado com sucesso!');
+        } catch (Exception $e) {
+            Log::error($e->getCode() . ' | ' . $e->getMessage());
+            
+            return redirect()->route('ticket.new')
+                ->with('error', 'Não foi possível criar o chamado, entre em contato com nosso suporte técnico!');
+        }
 
-        return redirect()->route('ticket.new');
     }
 
     public function list()
@@ -113,21 +125,40 @@ class TicketController extends Controller
 
     public function update(Request $request, Ticket $ticket)
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'min:5' , 'max:255'],
-            'description' => ['required', 'string', 'min:5', 'max:255'],
-            'category_id' => ['required']
-        ]);
+        try {
+            $data = $request->validate([
+                'title' => ['required', 'string', 'min:5' , 'max:255'],
+                'description' => ['required', 'string', 'min:5', 'max:255'],
+                'category_id' => ['required']
+            ]);
+    
+            $ticket->update($data);
 
-        $ticket->update($data);
+            Log::info("Ticket: $ticket->id | atualizado por: $this->user_id");
 
-        return redirect('ticket');
+            return redirect('ticket')->with('success', 'Chamado atualizado com sucesso!');
+        } catch(Exception $e) {
+            Log::error($e->getCode() . ' | ' . $e->getMessage());
+
+            return redirect('ticket')
+                ->with('error', 'Não foi possível atualizar o chamado, entre em contato com nosso suporte técnico!');
+        }
+
     }
 
     public function delete(int $id)
     {
-        Ticket::findOrFail($id)->delete();
+        try {
+            Ticket::findOrFail($id)->delete();
+    
+            Log::info("Ticket: $id | deletado por: $this->user_id");
 
-        return redirect('ticket');
+            return redirect('ticket')->with('success', 'Chamado excluído com sucesso!');
+        } catch(Exception $e) {
+            Log::error($e->getCode() . ' | ' . $e->getMessage());
+
+            return redirect('ticket')
+                ->with('error', 'Não foi possível excluir o chamado, entre em contato com nosso suporte técnico!');
+        }
     }
 }

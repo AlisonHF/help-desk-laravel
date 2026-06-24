@@ -31,6 +31,7 @@
     @endif
 
     <main class="flex flex-col items-center flex-1">
+        <x-toast />
         @yield('content')
     </main>
 </body>
