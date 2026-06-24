@@ -7,7 +7,8 @@
             <div class="card-body">
                 <h2 class="card-title">{{ $ticket->title }}</h2>
                 <p>{{ $ticket->description }}</p>
-                <div class="card-actions">                    
+                <div class="card-actions">
+                    <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn">Visualizar</a>                  
                 </div>
             </div>
         </div>

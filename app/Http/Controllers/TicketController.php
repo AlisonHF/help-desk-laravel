@@ -88,4 +88,39 @@ class TicketController extends Controller
             ]
         );
     }
+
+    public function edit(Ticket $id)
+    {
+        $categories = Category::all();
+        
+        $breadcrumbs = [
+            ['href' => route('home'), 'name' => 'Home'],
+            ['href' => route('ticket.list'), 'name' => 'Chamados'],
+            ['href' => '', 'name' => 'Editar chamado'],
+        ];
+
+        $namePage = 'Editar chamado';
+        return view(
+            'ticket.edit',
+            [
+                'ticket' => $id,
+                'breadcrumbs' => $breadcrumbs,
+                'namePage' => $namePage,
+                'categories' => $categories
+            ]
+        ); 
+    }
+
+    public function update(Request $request, Ticket $ticket)
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'min:5' , 'max:255'],
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+            'category_id' => ['required']
+        ]);
+
+        $ticket->update($data);
+
+        return redirect('ticket');
+    }
 }
