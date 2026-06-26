@@ -10,11 +10,13 @@
                 <div class="card-actions">
                     <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-info">Visualizar</a>
                     
-                    <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-error" type="submit">Excluir</button>
-                    </form>
+                    @can('ticket-delete')
+                        <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-error" type="submit">Excluir</button>
+                        </form>
+                    @endcan
                 </div>
             </div>
         </div>

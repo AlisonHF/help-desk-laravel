@@ -80,10 +80,10 @@ class TicketController extends Controller
         $user = User::find($this->user_id);
 
         switch ($user->position) {
-            case UserPositions::Admin->value:
+            case UserPositions::Admin:
                 $tickets = Ticket::get();
                 break;
-            case UserPositions::Technician->value:
+            case UserPositions::Technician:
                 $tickets = Ticket::where('technician_id', $this->user_id)->get();
                 break;
             default:
