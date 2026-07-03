@@ -10,7 +10,18 @@
 
 <body class="min-h-screen flex flex-col">
     <div class="navbar shadow-sm bg-neutral text-white">
-        <a href="{{ route('home') }}" class="btn btn-ghost text-xl">Help-Desk</a>
+        <div class="navbar-start">
+            <a href="{{ route('home') }}" class="btn btn-ghost text-xl">Help-Desk</a>
+        </div>
+
+        <div class="navbar-end">
+            @if(auth()->id())
+                <form method="POST" action="{{ route('logout') }}" class="">
+                    @csrf
+                    <button class="btn btn-error" type="submit">Sair</button>
+                </form>
+            @endif
+        </div>
     </div>
 
     @if (isset($namePage))
