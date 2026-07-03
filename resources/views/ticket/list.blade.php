@@ -3,10 +3,23 @@
 @section('content')
 <div class="flex flex-row flex-wrap gap-4 justify-center">
     @forelse($tickets as $ticket)
-        <div class="card w-120 bg-base-100 card-xl shadow-sm">
+        <div class="card w-120 bg-base-200 card-xl shadow-sm mb-3">
             <div class="card-body">
+                <span class="badge {{ $ticket->status->color() }}">
+                    <b>{{ $ticket->status->label() }}</b>
+                </span>
+                
                 <h2 class="card-title">{{ $ticket->title }}</h2>
-                <p>{{ $ticket->description }}</p>
+
+                @can('is-technician')
+                    <small class="block mt-2">Criado por: <b>{{ $ticket->user->name }}</b></small>
+                @endcan
+                
+                <small class="block">
+                    Criado em: 
+                    <b>{{ $ticket->created_at->format('d/m/Y - h:m') }}</b>
+                </small>
+
                 <div class="card-actions">
                     <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-info">Visualizar</a>
                     

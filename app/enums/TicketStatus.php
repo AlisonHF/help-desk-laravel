@@ -16,6 +16,15 @@
                 self::Finalizado => 'Finalizado',
             };
         }
+
+        public function color(): string
+        {
+            return match ($this) {
+                self::Aberto      => 'badge-accent',
+                self::EmAndamento => 'badge-info',
+                self::Finalizado  => 'badge-success'
+            };
+        }
     }
 
 ?>

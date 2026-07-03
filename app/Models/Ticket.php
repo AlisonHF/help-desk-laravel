@@ -19,11 +19,11 @@ class Ticket extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function technician()
     {
-        return $this->hasMany(User::class, 'technician_id');
+        return $this->belongsTo(User::class, 'technician_id');
     }
 }

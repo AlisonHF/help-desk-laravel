@@ -33,5 +33,10 @@ class AppServiceProvider extends ServiceProvider
             $ticket->status == TicketStatus::Aberto ||
             $ticket->technician_id == $user->id
         );
+
+        Gate::define('is-technician', fn(User $user) =>
+            $user->position == UserPositions::Admin || 
+            $user->Position == UserPositions::Technician
+        );
     }
 }
