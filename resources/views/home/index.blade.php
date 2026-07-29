@@ -3,7 +3,7 @@
 @section('content')
 <h1 class="w-full px-5 pt-5 text-center bold text-2xl">Bem vindo {{ $user }}</h1>
 <small class="pb-5">O que faremos hoje?</small>
-<div class="flex gap-3 flex-wrap">
+<div class="flex gap-3 flex-wrap items-center justify-center">
     <div class="card w-70 bg-base-100 card-sm shadow-sm">
         <div class="card-body">
             <div class="rounded bg-blue-100 w-min">
