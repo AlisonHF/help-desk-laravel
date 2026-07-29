@@ -77,9 +77,9 @@ class TicketController extends Controller
 
         $tickets = null;
 
-        $user = User::find($this->user_id);
+        $userPosition = auth()->user()->position;
 
-        switch ($user->position) {
+        switch ($userPosition) {
             case UserPositions::Admin:
                 $tickets = Ticket::get();
                 break;
