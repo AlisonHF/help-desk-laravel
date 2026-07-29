@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Help Desk</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -19,7 +19,7 @@
                         <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button">
                             <x-heroicon-o-bars-3 class="my-1.5 inline-block size-5" />
                         </label>
-                        <div class="px-4">Help Desk</div>                        
+                        <a href="{{ route('home') }}" class="px-4">Help Desk</a>                        
                     </div>
 
                     <div class="navbar-end">

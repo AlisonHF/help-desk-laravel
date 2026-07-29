@@ -9,10 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $user = User::find(auth()->id());
+        $user = auth()->user()->name;
 
-        $namePage = "Seja bem vindo $user->name !";
-
-        return view('home.index', ['namePage' => $namePage]);
+        return view('home.index', ['user' => $user]);
     }
 }
