@@ -47,7 +47,7 @@
                     >{{ $category['description'] }}</option>
                 @endforeach
             </select>
-            @error('category')
+            @error('category_id')
                 <span class="text-error text-sm">{{ $message }}</span>
             @enderror
         </fieldset>
