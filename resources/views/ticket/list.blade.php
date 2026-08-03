@@ -1,7 +1,7 @@
 @extends('Layouts.master')
 
 @section('content')
-<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden sm:block">
+<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block">
     <table class="table">
         <thead>
             <tr>
@@ -9,6 +9,7 @@
                 <th>Chamado</th>
                 <th>Categoria</th>
                 <th>Status</th>
+                <th>Criado em</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                             <b>{{ $ticket->status->label() }}</b>
                         </span>
                     </td>
+                    <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                     <td class="flex flex-row gap-1 sm:w-20">
                         <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
                             <x-heroicon-o-pencil-square class="size-5" />
@@ -43,9 +45,9 @@
     </table>
 </div>
 
-<div class="sm:hidden">
+<div class="md:hidden">
     @foreach($tickets as $ticket)
-        <div class="card w-80 bg-base-100 card-xs shadow-sm mb-3">
+        <div class="card w-90 sm:w-110 bg-base-100 card-xs shadow-sm mb-3">
             <div class="card-body">
                 <div class="justify-between flex">
                     <span class="badge {{ $ticket->status->color() }} rounded-2xl text-[10px] p-2">
