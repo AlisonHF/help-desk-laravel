@@ -1,58 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎫 Help Desk
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de chamados de suporte técnico — abertura, acompanhamento e permissões por papel.
 
-## About Laravel
+![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![daisyUI](https://img.shields.io/badge/daisyUI-5-1AD1A5)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Sobre
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplicação de abertura e gestão de chamados construída para aprender **Laravel na prática**. Trabalho profissionalmente com CodeIgniter 3, e este projeto é onde exploro o jeito Laravel de resolver os mesmos problemas do dia a dia: autenticação, autorização, ORM e organização de views. O escopo é enxuto de propósito — a ideia é fazer cada parte do jeito idiomático do framework, não empilhar features.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Destaques técnicos
 
-## Learning Laravel
+- Autenticação com **Laravel Fortify** (registro, login e logout) e telas próprias em Blade
+- Autorização com **Gates** (`ticket-update`, `ticket-delete`, `is-technician`) aplicadas na rota via middleware `can:` e nas views via `@can`
+- **Enums nativos do PHP** (`TicketStatus`, `UserPositions`) com `label()` e cor de badge centralizados no próprio enum — a view nunca decide texto ou cor de status
+- Cast automático de enum no model e atributos **`#[Fillable]`** do Laravel 13 no lugar do array `$fillable`
+- Listagem filtrada por papel: admin vê tudo, técnico vê os chamados vinculados a ele, usuário só os próprios
+- Duas relações para a mesma tabela no `Ticket` — `user()` (solicitante) e `technician()` (atendente) — com FK explícita
+- Validação server-side com feedback por flash message e componente de **toast**
+- **Log de auditoria** em toda mutação: quem criou, atualizou ou excluiu cada chamado
+- Layout responsivo com drawer (daisyUI) e componentes Blade reutilizáveis (cards, toast, breadcrumb)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Funcionalidades
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Módulo | Recursos |
+|---|---|
+| Auth | Registro, login e logout via Fortify; novo usuário já nasce com papel "usuário" |
+| Chamados | Abertura com categoria, listagem por papel, edição e exclusão com permissão, status com badge |
+| Permissões | Três papéis (admin, técnico, usuário) controlados por Gates |
+| UI | Home com atalhos, breadcrumbs, toasts de sucesso/erro, listagem em tabela e cards responsivos |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Papéis e permissões
 
-## Agentic Development
+| Papel | Visualiza | Edita | Exclui |
+|---|---|---|---|
+| **Admin** | Todos os chamados | Qualquer chamado | Qualquer chamado |
+| **Técnico** | Em aberto + vinculados a ele | Vinculados a ele | — |
+| **Usuário** | Somente os próprios | Os próprios, enquanto em aberto | — |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Stack
+
+**Backend:** Laravel 13 (PHP 8.3), Fortify
+**Frontend:** Blade, Tailwind CSS 4, daisyUI 5, Alpine.js, Heroicons
+**Build e qualidade:** Vite 8, Pest, Pint
+**Banco:** MySQL (SQLite por padrão no `.env.example`)
+
+## Rodando o projeto
+
+Pré-requisitos: PHP 8.3+, Composer e Node 20+.
 
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/AlisonHF/help-desk-laravel.git help-desk
+cd help-desk
 
-php artisan boost:install
+# Instala dependências, cria o .env, gera a key, migra e builda os assets
+composer run setup
+
+# Sobe servidor, fila e Vite de uma vez
+composer run dev
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Pronto. Acesse: http://localhost:8000
 
-## Contributing
+O `.env.example` usa **SQLite**, então funciona sem configurar nada. Para usar MySQL, ajuste as variáveis `DB_*` no `.env` antes de rodar as migrations.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> Com **Laravel Herd**, a aplicação também responde em `http://help-desk.test` — nesse caso basta rodar `npm run dev` para os assets.
 
-## Code of Conduct
+## Estrutura
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+app/
+├── Actions/Fortify/    → customizações de cadastro e senha
+├── Enums/              → TicketStatus e UserPositions (label e cor num lugar só)
+├── Http/Controllers/   → Auth, Home e Ticket
+├── Models/             → User, Ticket e Category
+└── Providers/          → Gates de autorização + configuração do Fortify
+resources/views/
+├── Layouts/            → master com drawer e navbar
+├── components/         → card-auth, card-home, toast
+├── partials/           → cabeçalho de página com breadcrumb
+├── auth/               → login e registro
+└── ticket/             → listagem e formulário
+```
 
-## Security Vulnerabilities
+## Próximos passos
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- [ ] Atribuição de técnico ao chamado
+- [ ] Transição de status (em andamento → finalizado) com registro de `completed_in`
+- [ ] Gestão de categorias
+- [ ] Testes de feature com Pest
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Feito por [Alison Faria](https://alisonfaria.com.br) ⚡
