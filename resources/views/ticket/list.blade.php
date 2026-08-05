@@ -1,7 +1,7 @@
 @extends('Layouts.master')
 
 @section('content')
-<div class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2">
+<form class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2">
     <div class="col-span-2 md:col-span-1">
         <fieldset class="fieldset w-full">
             <legend>Protocolo</legend>
@@ -64,7 +64,14 @@
             </label>
         </fieldset>
     </div>
-</div>
+
+    <div class="row-auto">
+        <fieldset class="fieldset">
+            <legend>&nbsp</legend>
+            <button class="btn btn-info" type="submit">Pesquisar</button>
+        </fieldset>
+    </div>
+</form>
 
 <div class="flex w-full flex-col">
   <div class="divider mx-10"></div>
