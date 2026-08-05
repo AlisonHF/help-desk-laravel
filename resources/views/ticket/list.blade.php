@@ -110,7 +110,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="hover:cursor-pointer" type="submit" title="Excluir">
-                                    <x-heroicon-o-trash class="size-5 text-red-600"/>
+                                    <x-heroicon-o-trash class="size-5 text-error"/>
                                 </button>
                             </form>
                         @endcan
@@ -147,7 +147,7 @@
                             <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="flex hover:cursor-pointer text-red-600 hover:underline" type="submit" title="Excluir">
+                                <button class="flex hover:cursor-pointer text-error hover:underline" type="submit" title="Excluir">
                                     <x-heroicon-o-trash class="size-4"/>Excluir
                                 </button>
                             </form>

@@ -43,11 +43,11 @@
         </fieldset>
 
         <div class="text-center my-2">
-            <span class="inline">Já tem uma conta? <a href="{{ Route('login') }}" class="text-blue-600 hover:underline">faça login</a></span>
+            <span class="inline">Já tem uma conta? <a href="{{ Route('login') }}" class="link link-primary">faça login</a></span>
         </div>
 
         <div class="flex w-50">
-            <button type="submit" class="btn bg-success-content text-white w-full">Cadastrar</button>
+            <button type="submit" class="btn btn-success w-full">Cadastrar</button>
         </div>
     </form>
 </x-card-auth>

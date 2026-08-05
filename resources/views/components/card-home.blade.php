@@ -3,7 +3,7 @@
     'title',
     'description',
     'href' => '#',
-    'iconClass' => 'bg-blue-100 text-blue-500'
+    'iconClass' => 'bg-primary/10 text-primary'
 ])
 
 <div {{ $attributes->merge(['class' => 'card w-70 bg-base-100 card-sm shadow-sm']) }}>
@@ -15,7 +15,7 @@
         <h2 class="card-title">{{ $title }}</h2>
         <p>{{ $description }}</p>
         <div class="card-actions mt-1">
-            <a href="{{ $href }}" class="text-blue-700 hover:underline">Acessar →</a>
+            <a href="{{ $href }}" class="link link-primary">Acessar →</a>
         </div>
     </div>
 </div>
