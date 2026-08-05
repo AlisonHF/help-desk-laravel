@@ -1,6 +1,75 @@
 @extends('Layouts.master')
 
 @section('content')
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2">
+    <div class="col-span-2 md:col-span-1">
+        <fieldset class="fieldset w-full">
+            <legend>Protocolo</legend>
+            <label class="input input-bordered">
+                <input/>
+            </label>
+        </fieldset>
+    </div>
+    <div class="col-span-2">
+        <fieldset class="fieldset">
+            <legend>Título do chamado</legend>
+            <label class="input input-bordered w-full">
+                <input/>
+            </label>
+        </fieldset>
+    </div>
+    <div class="col-span-2">
+        <fieldset class="fieldset">
+            <legend>Categoria</legend>
+            <label class="select select-bordered">
+                <select>
+                    <option val="">Selecione</option>
+                </select>
+            </label>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset class="fieldset">
+            <legend>Status</legend>
+            <label class="select select-bordered">
+                <select>
+                    <option val="">Selecione</option>
+                </select>
+            </label>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset class="fieldset">
+            <legend>Tipo de busca por data</legend>
+            <label class="select select-bordered">
+                <select>
+                    <option val="">Selecione</option>
+                </select>
+            </label>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset class="fieldset">
+            <legend>Data inicial</legend>
+            <label class="input input-bordered">
+                <input type="date"/>
+            </label>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset class="fieldset">
+            <legend>Data final</legend>
+            <label class="input input-bordered">
+                <input type="date"/>
+            </label>
+        </fieldset>
+    </div>
+</div>
+
+<div class="flex w-full flex-col">
+  <div class="divider mx-10"></div>
+</div>
+
 <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block">
     <table class="table">
         <thead>
