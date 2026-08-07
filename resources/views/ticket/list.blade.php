@@ -97,7 +97,7 @@
                     <td class="sm:w-40">{{ $ticket->category->description }}</td>
                     <td class="sm:w-50 min-w-40">
                         <span class="badge {{ $ticket->status->color() }} rounded-2xl">
-                            <b>{{ $ticket->status->label() }}</b>
+                            {{  $ticket->status->label()  }}
                         </span>
                     </td>
                     <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
@@ -110,7 +110,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="hover:cursor-pointer" type="submit" title="Excluir">
-                                    <x-heroicon-o-trash class="size-5 text-error"/>
+                                    <x-heroicon-o-trash class="size-5 text-red-600"/>
                                 </button>
                             </form>
                         @endcan

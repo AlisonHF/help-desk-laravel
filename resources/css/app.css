@@ -9,4 +9,20 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Tons mais escuros das cores do tema (mesmo matiz/saturação, luminosidade reduzida), usados quando o
+       ícone precisa se destacar sobre um fundo tingido da mesma cor. */
+    --color-primary-dark: oklch(38% 0.17 142);
+    --color-secondary-dark: oklch(45% 0.15 95);
+    --color-accent-dark: oklch(48% 0.14 70);
+}
+
+/* A navbar fica fixa acima do drawer (fora do grid do componente), então o drawer-side (que o daisyUI
+   posiciona com height:100dvh) precisa começar depois dela e ocupar só a altura restante da tela.
+   Regra sem @layer: assim ela sempre vence a regra em camada do componente daisyUI, independente de especificidade. */
+@media (width >= 1024px) {
+    .drawer-side {
+        top: 4rem;
+        height: calc(100dvh - 4rem);
+    }
 }

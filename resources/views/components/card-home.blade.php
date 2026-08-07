@@ -3,7 +3,7 @@
     'title',
     'description',
     'href' => '#',
-    'iconClass' => 'bg-primary/10 text-primary'
+    'iconClass' => 'bg-primary/10 text-primary-dark'
 ])
 
 <div {{ $attributes->merge(['class' => 'card w-70 bg-base-100 card-sm shadow-sm']) }}>
