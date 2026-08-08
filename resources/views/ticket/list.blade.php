@@ -102,10 +102,13 @@
                     </td>
                     <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                     <td class="flex flex-row gap-1 sm:w-20">
-                        <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
-                            <x-heroicon-o-pencil-square class="size-5" />
-                        </a>
-                        @can('ticket-delete')
+                        @can('update', $ticket)
+                            <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
+                                <x-heroicon-o-pencil-square class="size-5" />
+                            </a>
+                        @endcan
+
+                        @can('delete', $ticket)
                             <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
                                 @csrf
                                 @method('DELETE')
@@ -140,10 +143,13 @@
                     <span class="min-w-0 truncate">{{ $ticket->category->description }}</span>
 
                     <div class="flex gap-2 shrink-0">
-                        <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
-                            <x-heroicon-o-pencil-square class="size-4" />Editar
-                        </a>
-                        @can('ticket-delete')
+                        @can('update', $ticket)
+                            <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
+                                <x-heroicon-o-pencil-square class="size-4" />Editar
+                            </a>
+                        @endcan
+
+                        @can('delete', $ticket)
                             <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
                                 @csrf
                                 @method('DELETE')

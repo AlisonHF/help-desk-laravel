@@ -36,4 +36,13 @@ class User extends Authenticatable
             'position' => UserPositions::class
         ];
     }
+
+    public function isTechnician(): bool
+    {
+        return in_array(
+            $this->position,
+            [UserPositions::Admin, UserPositions::Technician],
+            true
+        );
+    }
 }

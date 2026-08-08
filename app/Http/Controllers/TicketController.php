@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
 use App\Models\Category;
 use App\Models\Ticket;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -84,7 +84,9 @@ class TicketController extends Controller
                 $tickets = Ticket::get();
                 break;
             case UserPositions::Technician:
-                $tickets = Ticket::where('technician_id', $this->user_id)->get();
+                $tickets = Ticket::where('technician_id', $this->user_id)
+                ->orWhere('status', TicketStatus::Aberto)
+                ->get();
                 break;
             default:
                 $tickets = Ticket::where('user_id', $this->user_id)->get();
@@ -101,7 +103,7 @@ class TicketController extends Controller
         );
     }
 
-    public function edit(Ticket $id)
+    public function edit(Ticket $ticket)
     {
         $categories = Category::all();
         
@@ -115,7 +117,7 @@ class TicketController extends Controller
         return view(
             'ticket.edit',
             [
-                'ticket' => $id,
+                'ticket' => $ticket,
                 'breadcrumbs' => $breadcrumbs,
                 'namePage' => $namePage,
                 'categories' => $categories
@@ -146,10 +148,12 @@ class TicketController extends Controller
 
     }
 
-    public function delete(int $id)
+    public function delete(Ticket $ticket)
     {
         try {
-            Ticket::findOrFail($id)->delete();
+            $id = $ticket->id;
+
+            $ticket->delete();
     
             Log::info("Ticket: $id | deletado por: $this->user_id");
 

@@ -16,12 +16,17 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::get('/ticket', [TicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/new', [TicketController::class, 'new'])->name('ticket.new');
     Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
-    Route::get('/ticket/edit/{id}', [TicketController::class, 'edit'])->name('ticket.edit');
+
+    Route::get('/ticket/edit/{ticket}', [TicketController::class, 'edit'])
+        ->middleware('can:update,ticket')
+        ->name('ticket.edit');
+
     Route::patch('/ticket/update/{ticket}', [TicketController::class, 'update'])
-        ->middleware('can:ticket-update,ticket')
+        ->middleware('can:update,ticket')
         ->name('ticket.update');
-    Route::delete('/ticket/delete/{id}', [TicketController::class, 'delete'])
-        ->middleware('can:ticket-delete')
+
+    Route::delete('/ticket/delete/{ticket}', [TicketController::class, 'delete'])
+        ->middleware('can:delete,ticket')
         ->name('ticket.delete');
 
 });
