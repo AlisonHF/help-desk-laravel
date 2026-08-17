@@ -27,7 +27,7 @@
                 <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                     <div class="avatar avatar-placeholder cursor-pointer">
                         <div tabindex="0" role="button" class="bg-primary/70 w-8 rounded-full m-1">
-                            <span class="text-xs">AF</span>
+                            <span class="text-xs">{{ auth()->user()->initial() }}</span>
                         </div>
                         <ul tabindex="-1" class="dropdown-content menu bg-base-200 rounded-box z-1 w-30 p-2 shadown-sm">
                             <form method="POST" action="{{ route('logout') }}" class="">

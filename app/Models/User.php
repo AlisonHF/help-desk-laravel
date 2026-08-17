@@ -45,4 +45,9 @@ class User extends Authenticatable
             true
         );
     }
+
+    public function initial(): string
+    {
+        return $this->name[0];
+    }
 }
