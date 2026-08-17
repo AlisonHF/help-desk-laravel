@@ -75,6 +75,8 @@ class TicketController extends Controller
 
         $namePage = 'Listagem de chamados';
 
+        $opensOnly = false;
+
         $tickets = null;
 
         $userPosition = auth()->user()->position;
@@ -98,7 +100,46 @@ class TicketController extends Controller
             [
                 'tickets' => $tickets,
                 'breadcrumbs' => $breadcrumbs,
-                'namePage' => $namePage
+                'namePage' => $namePage,
+                'opensOnly' => $opensOnly
+            ]
+        );
+    }
+
+    public function ticketsOpen()
+    {
+        $breadcrumbs = [
+            ['href' => route('home'), 'name' => 'Home'],
+            ['href' => '', 'name' => 'Chamados em aberto'],
+        ];
+
+        $opensOnly = true;
+
+        $namePage = 'Listagem de chamados em aberto';
+
+        $tickets = null;
+
+        $userPosition = auth()->user()->position;
+
+        switch ($userPosition) {
+            case UserPositions::Admin:
+                $tickets = Ticket::where('status', TicketStatus::Aberto)->get();
+                break;
+            case  UserPositions::Technician:
+                $tickets = Ticket::where('status', TicketStatus::Aberto)->get();
+                break;
+            default:
+                $tickets = Ticket::where(['user_id' => $this->user_id, 'status' => TicketStatus::Aberto])->get();
+                break;
+        }
+
+        return view(
+            'ticket.list',
+            [
+                'tickets' => $tickets,
+                'breadcrumbs' => $breadcrumbs,
+                'namePage' => $namePage,
+                'opensOnly' => $opensOnly
             ]
         );
     }

@@ -28,16 +28,18 @@
             </label>
         </fieldset>
     </div>
-    <div>
-        <fieldset class="fieldset">
-            <legend>Status</legend>
-            <label class="select select-bordered">
-                <select>
-                    <option val="">Selecione</option>
-                </select>
-            </label>
-        </fieldset>
-    </div>
+    @if(!$opensOnly)
+        <div>
+            <fieldset class="fieldset">
+                <legend>Status</legend>
+                <label class="select select-bordered">
+                    <select>
+                        <option val="">Selecione</option>
+                    </select>
+                </label>
+            </fieldset>
+        </div>
+    @endif
     <div>
         <fieldset class="fieldset">
             <legend>Tipo de busca por data</legend>
