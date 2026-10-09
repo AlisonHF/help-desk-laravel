@@ -46,11 +46,11 @@ Aplicação de abertura e gestão de chamados construída para aprender **Larave
 **Backend:** Laravel 13 (PHP 8.3), Fortify
 **Frontend:** Blade, Tailwind CSS 4, daisyUI 5, Alpine.js, Heroicons
 **Build e qualidade:** Vite 8, Pest, Pint
-**Banco:** MySQL (SQLite por padrão no `.env.example`)
+**Banco:** MySQL 8.4 (serviço `mysql` do `docker-compose.yml`)
 
 ## Rodando o projeto
 
-Pré-requisitos: PHP 8.3+, Composer e Node 20+.
+Pré-requisitos: PHP 8.3+, Composer, Node 20+ e Docker (para o MySQL).
 
 ```bash
 git clone https://github.com/AlisonHF/help-desk-laravel.git help-desk
@@ -65,7 +65,7 @@ composer run dev
 
 Pronto. Acesse: http://localhost:8000
 
-O `.env.example` usa **SQLite**, então funciona sem configurar nada. Para usar MySQL, ajuste as variáveis `DB_*` no `.env` antes de rodar as migrations.
+O banco é **MySQL 8.4**, que roda no serviço `mysql` do `docker-compose.yml` (banco e usuário `helpdesk`), e o `.env.example` já vem configurado para ele. Suba o banco com `docker compose up -d mysql` antes do `composer run setup`. Se o PHP rodar fora do Docker, copie o `.env.example` para `.env` antes do setup e troque para `DB_HOST=127.0.0.1` e `DB_PORT=3307`, a porta do MySQL no host.
 
 > Com **Laravel Herd**, a aplicação também responde em `http://help-desk.test` — nesse caso basta rodar `npm run dev` para os assets.
 
