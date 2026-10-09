@@ -1,0 +1,23 @@
+name: helpdesk
+
+x-php: &php
+  image: helpdesk-php:8.4
+  user: "${UID:-1000}:${GID:-1000}"
+  volumes:
+    - .:/app
+
+services:
+  app:
+    <<: *php
+    build: ./docker
+    container_name: helpdesk-app
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    ports:
+      - "8000:8000"
+
+  queue:
+    <<: *php
+    container_name: helpdesk-queue
+    command: php artisan queue:listen --tries=1
+    depends_on:
+      - app
