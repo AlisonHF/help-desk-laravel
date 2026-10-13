@@ -6,11 +6,19 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
+use Pest\Bootstrappers\BootExcludeList;
+
+use function PHPUnit\Framework\isNumeric;
 
 class TicketPolicy
 {
     public function before(User $user, string $ability): ?bool
     {
+        if ($ability === 'takeOnCall')
+        {
+            return null;
+        }
+
         return $user->position === UserPositions::Admin ? true : null;
     }
 
@@ -59,6 +67,16 @@ class TicketPolicy
     {
         if ($ticket->status === TicketStatus::Aberto) {
             return $ticket->user_id === $user->id;
+        }
+
+        return false;
+    }
+
+    public function takeOnCall(User $user, Ticket $ticket): bool
+    {
+        if ($user->position === UserPositions::Technician || $user->position === UserPositions::Admin)
+        {
+            return $ticket->technician_id == null;
         }
 
         return false;
