@@ -1,12 +1,13 @@
 @extends('Layouts.master')
 
 @section('content')
-<form class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2">
+<form class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2" method="POST" action="{{ route('ticket.list') }}">
+    @csrf
     <div class="col-span-2 md:col-span-1">
         <fieldset class="fieldset w-full">
             <legend>Protocolo</legend>
             <label class="input input-bordered">
-                <input/>
+                <input id="protocolo" name="protocolo"/>
             </label>
         </fieldset>
     </div>
@@ -14,7 +15,7 @@
         <fieldset class="fieldset">
             <legend>Título do chamado</legend>
             <label class="input input-bordered w-full">
-                <input/>
+                <input id="titulo" name="titulo"/>
             </label>
         </fieldset>
     </div>
@@ -22,7 +23,7 @@
         <fieldset class="fieldset">
             <legend>Categoria</legend>
             <label class="select select-bordered">
-                <select>
+                <select id="categoria" name="categoria">
                     <option val="">Selecione</option>
                 </select>
             </label>
@@ -33,7 +34,7 @@
             <fieldset class="fieldset">
                 <legend>Status</legend>
                 <label class="select select-bordered">
-                    <select>
+                    <select id="status" name="status">
                         <option val="">Selecione</option>
                     </select>
                 </label>
@@ -44,7 +45,7 @@
         <fieldset class="fieldset">
             <legend>Tipo de busca por data</legend>
             <label class="select select-bordered">
-                <select>
+                <select id="tipo_data" name="tipo_data">
                     <option val="">Selecione</option>
                 </select>
             </label>
@@ -54,7 +55,7 @@
         <fieldset class="fieldset">
             <legend>Data inicial</legend>
             <label class="input input-bordered">
-                <input type="date"/>
+                <input type="date" id="data_in" name="data_in"/>
             </label>
         </fieldset>
     </div>
@@ -62,7 +63,7 @@
         <fieldset class="fieldset">
             <legend>Data final</legend>
             <label class="input input-bordered">
-                <input type="date"/>
+                <input type="date" id="data_fin" name="data_fin"/>
             </label>
         </fieldset>
     </div>
