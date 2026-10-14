@@ -2,7 +2,7 @@
 
 @section('content')
 <div
-    class="flex flex-col items-center rounded-2xl shadow-sm/50 overflow-hidden mx-10 p-5"
+    class="flex flex-col items-center rounded-2xl shadow-sm/50 overflow-hidden mx-10 p-5 sm:w-250"
 >
 
 <h1 class="font-bold">{{ $ticket->title }}</h1>

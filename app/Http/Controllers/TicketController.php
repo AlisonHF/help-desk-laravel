@@ -111,7 +111,7 @@ class TicketController extends Controller
         $breadcrumbs = [
             ['href' => route('home'), 'name' => 'Home'],
             ['href' => route('ticket.list'), 'name' => 'Chamados'],
-            ['href' => '', 'name' => 'Editar chamado'],
+            ['href' => '', 'name' => 'Visualizar chamado'],
         ];
 
         return view(

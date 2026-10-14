@@ -152,6 +152,11 @@
                     <span class="min-w-0 truncate">{{ $ticket->category->description }}</span>
 
                     <div class="flex gap-2 shrink-0">
+                        @can('view', $ticket)
+                            <a href="{{ route('ticket.view', $ticket->id) }}" class="flex hover:underline">
+                                <x-heroicon-o-eye class="size-4" />Visualizar
+                            </a>
+                        @endcan
                         @can('update', $ticket)
                             <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
                                 <x-heroicon-o-pencil-square class="size-4" />Editar
