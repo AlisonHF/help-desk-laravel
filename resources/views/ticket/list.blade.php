@@ -122,7 +122,7 @@
                         @endcan
 
                         @can('takeOnCall', $ticket)
-                            <a href="#" title="Assumir chamado">
+                            <a href="{{ route('ticket.view', $ticket->id) }}" title="Assumir chamado">
                                 <x-heroicon-o-chat-bubble-bottom-center class="size-5"/>
                             </a>
                         @endcan

@@ -106,6 +106,24 @@ class TicketController extends Controller
         );
     }
 
+    public function view(Ticket $ticket)
+    {
+        $breadcrumbs = [
+            ['href' => route('home'), 'name' => 'Home'],
+            ['href' => route('ticket.list'), 'name' => 'Chamados'],
+            ['href' => '', 'name' => 'Editar chamado'],
+        ];
+
+        return view(
+            'ticket.view',
+            [
+                'breadcrumbs' => $breadcrumbs,
+                'ticket' => $ticket,
+                'namePage' => 'Visualizar chamado'
+            ]
+        );
+    }
+
     public function ticketsOpen()
     {
         $breadcrumbs = [

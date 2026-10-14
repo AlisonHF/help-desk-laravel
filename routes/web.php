@@ -15,6 +15,7 @@ Route::middleware(Authenticate::class)->group(function () {
 
     Route::get('/ticket', [TicketController::class, 'list'])->name('ticket.list');
     Route::get('/ticket/open', [TicketController::class, 'ticketsOpen'])->name('ticket.open');
+    Route::get('ticket/view/{ticket}', [TicketController::class,'view'])->name('ticket.view');
     Route::get('/ticket/new', [TicketController::class, 'new'])->name('ticket.new');
     Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
 
