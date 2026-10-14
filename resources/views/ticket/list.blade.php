@@ -105,6 +105,12 @@
                     </td>
                     <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                     <td class="flex flex-row gap-1 h-20">
+                        @can('view', $ticket)
+                            <a href="{{ route('ticket.view', $ticket->id) }}">
+                                <x-heroicon-o-eye class="size-5" />
+                            </a>
+                        @endcan
+
                         @can('update', $ticket)
                             <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
                                 <x-heroicon-o-pencil-square class="size-5" />
@@ -119,12 +125,6 @@
                                     <x-heroicon-o-trash class="size-5 text-red-600"/>
                                 </button>
                             </form>
-                        @endcan
-
-                        @can('takeOnCall', $ticket)
-                            <a href="{{ route('ticket.view', $ticket->id) }}" title="Assumir chamado">
-                                <x-heroicon-o-chat-bubble-bottom-center class="size-5"/>
-                            </a>
                         @endcan
                     </td>
                 </tr>
