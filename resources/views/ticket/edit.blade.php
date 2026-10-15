@@ -4,7 +4,7 @@
 <form
     method="POST"
     action="{{ isset($ticket) ? route('ticket.update', $ticket) : route('ticket.store') }}"
-    class="flex flex-col items-center rounded-2xl shadow-sm/50 overflow-hidden sm:w-150"
+    class="flex flex-col items-center rounded-2xl shadow-sm/50 overflow-hidden lg:w-250"
 >
     @csrf
 

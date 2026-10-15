@@ -104,7 +104,7 @@
                         </span>
                     </td>
                     <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
-                    <td class="flex flex-row gap-1 h-20">
+                    <td class="flex flex-row gap-1 h-20 items-center">
                         @can('view', $ticket)
                             <a href="{{ route('ticket.view', $ticket->id) }}">
                                 <x-heroicon-o-eye class="size-5" />

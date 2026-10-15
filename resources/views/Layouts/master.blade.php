@@ -46,7 +46,7 @@
             </div>
         </nav>
 
-        <div class="drawer lg:drawer-open flex-1">
+        <div class="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" />
             <div class="drawer-content">
                 @include('partials.page')
@@ -56,7 +56,7 @@
                 <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                 <div class="flex min-h-full flex-col items-start bg-base-300 is-drawer-close:w-14 is-drawer-open:w-64">
                     <!-- Sidebar content here -->
-                    <ul class="menu w-full grow">
+                    <ul class="menu w-max grow">
                         <!-- List item -->
                         <li>
                             <a href="{{ route('home') }}">
