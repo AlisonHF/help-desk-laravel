@@ -132,12 +132,12 @@ class TicketController extends Controller
     {
         $breadcrumbs = [
             ['href' => route('home'), 'name' => 'Home'],
-            ['href' => '', 'name' => 'Chamados em aberto'],
+            ['href' => '', 'name' => 'Chamados em andamento'],
         ];
 
         $opensOnly = true;
 
-        $namePage = 'Listagem de chamados em aberto';
+        $namePage = 'Listagem de chamados em andamento';
 
         $tickets = null;
 
@@ -145,13 +145,13 @@ class TicketController extends Controller
 
         switch ($userPosition) {
             case UserPositions::Admin:
-                $tickets = Ticket::where('status', TicketStatus::Aberto)->get();
-                break;
-            case  UserPositions::Technician:
-                $tickets = Ticket::where('status', TicketStatus::Aberto)->get();
+            case UserPositions::Technician:
+                $tickets = Ticket::whereIn('status', [TicketStatus::Aberto->value, TicketStatus::EmAndamento->value, TicketStatus::AguardandoUsuario->value])->get();
                 break;
             default:
-                $tickets = Ticket::where(['user_id' => $this->user_id, 'status' => TicketStatus::Aberto])->get();
+                $tickets = Ticket::where([
+                    'user_id' => $this->user_id])
+                    ->whereIn('status', [TicketStatus::Aberto->value, TicketStatus::EmAndamento->value, TicketStatus::AguardandoUsuario->value])->get();
                 break;
         }
 

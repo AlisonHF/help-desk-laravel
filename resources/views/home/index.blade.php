@@ -14,8 +14,8 @@
     <x-card-home
         icon="heroicon-o-chat-bubble-bottom-center"
         icon-class="bg-secondary/15 text-secondary-dark"
-        title="Chamados em aberto"
-        description="Verifique os chamados em aberto"
+        title="Chamados em andamento"
+        description="Verifique os chamados em andamento"
         :href="route('ticket.open')" />
 
     <x-card-home

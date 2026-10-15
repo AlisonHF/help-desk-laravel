@@ -16,7 +16,10 @@
             return match ($this) {
                 self::Aberto => 'Aberto',
                 self::EmAndamento => 'Em andamento',
+                self::AguardandoUsuario => 'Aguardando usuário',
+                self::Resolvido => 'Resolvido',
                 self::Finalizado => 'Finalizado',
+                self::Cancelado => 'Cancelado'
             };
         }
 
@@ -24,8 +27,11 @@
         {
             return match ($this) {
                 self::Aberto      => 'badge-accent',
-                self::EmAndamento => 'badge-info',
-                self::Finalizado  => 'badge-success'
+                self::EmAndamento => 'badge-secondary',
+                self::AguardandoUsuario => 'badge-neutral',
+                self::Resolvido => 'badge-info',
+                self::Finalizado  => 'badge-success',
+                self::Cancelado => 'badge-error'
             };
         }
     }
