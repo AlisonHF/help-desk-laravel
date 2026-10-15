@@ -9,8 +9,9 @@
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed top-4 right-4 bg-success text-success-content px-6 py-3 rounded shadow-lg"
+        class="fixed bottom-4 right-4 bg-success text-success-content px-6 py-3 rounded shadow-lg z-50"
     >
+        <x-heroicon-o-check class="size-6 inline"/>
         {{ session('success') }}
     </div>
 @endif
@@ -26,8 +27,9 @@
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed top-4 right-4 bg-error text-error-content px-6 py-3 rounded shadow-lg"
+        class="fixed bottom-4 right-4 bg-error text-error-content px-6 py-3 rounded shadow-lg z-50"
     >
+        <x-heroicon-o-x-circle class="size-6 inline"/>
         {{ session('error') }}
     </div>
 @endif
@@ -43,8 +45,9 @@
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed top-4 right-4 bg-info text-info-content px-6 py-3 rounded shadow-lg"
+        class="fixed bottom-4 right-4 bg-info text-info-content px-6 py-3 rounded shadow-lg z-50"
     >
+    <x-heroicon-o-question-mark-circle class="size-6 inline"/>
         {{ session('info') }}
     </div>
 @endif

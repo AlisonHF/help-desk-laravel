@@ -8,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
+<x-toast/>
 <body class="min-h-screen flex flex-col">
     @auth
         <!-- Navbar -->

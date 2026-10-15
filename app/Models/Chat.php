@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(["ticket_id", "user_id", "mensage"])]
-class Chats extends Model
+#[Fillable(["ticket_id", "user_id", "message"])]
+class Chat extends Model
 {
     public function casts(): array
     {
@@ -14,5 +14,10 @@ class Chats extends Model
             'ticket_id' => 'integer',
             'user_id' => 'integer',
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ticket_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('mensage', 10000);
+            $table->string('message', 10000);
             $table->timestamps();
         });
     }

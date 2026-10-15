@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
+use App\Models\Chat;
 use Pest\Bootstrappers\BootExcludeList;
 
 use function PHPUnit\Framework\isNumeric;

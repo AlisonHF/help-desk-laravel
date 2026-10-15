@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
 use App\Models\Category;
+use App\Models\Chat;
 use App\Models\Ticket;
 use Exception;
 use Illuminate\Http\Request;
@@ -114,12 +115,15 @@ class TicketController extends Controller
             ['href' => '', 'name' => 'Visualizar chamado'],
         ];
 
+        $chats = Chat::where(['ticket_id' => $ticket->id])->orderBy('created_at', 'asc')->get();
+
         return view(
             'ticket.view',
             [
                 'breadcrumbs' => $breadcrumbs,
                 'ticket' => $ticket,
-                'namePage' => 'Visualizar chamado'
+                'namePage' => 'Visualizar chamado',
+                'chats' => $chats
             ]
         );
     }
