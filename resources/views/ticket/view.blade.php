@@ -8,9 +8,6 @@
             <b>{{ $ticket->status->label() }}</b>
         </span>
     </h3>
-    <div class="w-full">
-
-    </div>
     <h1 class="font-bold">{{ $ticket->title }}</h1>
     <p class="mx-3 mt-3 mb-10">{{ $ticket->description }}</p>
     <small class="w-full px-3 font-bold">
@@ -55,13 +52,25 @@
                 @enderror
             </fieldset>
 
-            <div class="mt-3">
-                <button type="submit" class="btn btn-success w-50">
+            <div class="mt-3 flex gap-3">
+                <button type="submit" class="btn btn-success w-50 float-left">
                     {{ $chats->isEmpty() && auth()->user()->position->value != 'user' ? 'Assumir chamado' : 'Responder' }}
+                </button>
+                <button type="button" onclick="my_modal_1.showModal()" class="btn btn-info w-50 float-left">
+                    Finalizar chamado
                 </button>
             </div>
         </form>
     </x-card-ticket-view>
     @endcan
 @endif
+<dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Hello!</h3>
+        <p class="py-4">Press ESC key or click outside to close</p>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
 @endsection
