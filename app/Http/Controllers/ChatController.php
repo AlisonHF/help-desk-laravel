@@ -34,7 +34,7 @@ class ChatController extends Controller
 
             return redirect()->route('ticket.list')->with('success', 'Resposta cadastrada com sucesso!');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error($e->getCode() . ' | ' . $e->getMessage());
             
             return redirect()->route('ticket.list')

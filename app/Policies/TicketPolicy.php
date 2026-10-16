@@ -7,9 +7,7 @@ use App\Models\User;
 use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
 use App\Models\Chat;
-use Pest\Bootstrappers\BootExcludeList;
 
-use function PHPUnit\Framework\isNumeric;
 
 class TicketPolicy
 {
@@ -73,13 +71,13 @@ class TicketPolicy
         return false;
     }
 
-    public function takeOnCall(User $user, Ticket $ticket): bool
+    public function userCanReply(User $user, Ticket $ticket): bool
     {
         if ($user->position === UserPositions::Technician || $user->position === UserPositions::Admin)
         {
-            return $ticket->technician_id == null;
+            return $ticket->technician_id === $user->id || $ticket->technician_id === null;
         }
 
-        return false;
+        return $ticket->user_id === $user->id;
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Policies\ChatPolicy;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 
+#[UsePolicy(ChatPolicy::class)]
 #[Fillable(["ticket_id", "user_id", "message"])]
 class Chat extends Model
 {
