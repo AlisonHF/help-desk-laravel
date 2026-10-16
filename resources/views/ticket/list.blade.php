@@ -118,7 +118,7 @@
                         @endcan
 
                         @can('delete', $ticket)
-                            <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
+                            <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}" class="flex">
                                 @csrf
                                 @method('DELETE')
                                 <button class="hover:cursor-pointer" type="submit" title="Excluir">
