@@ -228,4 +228,21 @@ class TicketController extends Controller
                 ->with('error', 'Não foi possível excluir o chamado, entre em contato com nosso suporte técnico!');
         }
     }
+
+    public function resolveCall(Ticket $ticket)
+    {
+        try {
+            $ticket->update([
+                'status' => TicketStatus::Resolvido
+            ]);
+
+            return redirect('ticket')
+                ->with('success', 'O chamado foi resolvido com sucesso!');
+        } catch(Exception $e) {
+            Log::error($e->getCode() . ' | '. $e->getMessage());
+
+            return redirect('ticket')
+                ->with('error', 'Não foi possível excluir o chamado, entre em contato com nosso suporte técnico!');
+        }
+    }
 }

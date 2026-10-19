@@ -20,8 +20,8 @@
 @if(!$chats->isEmpty())
     @foreach ($chats as $chat)
         <x-card-ticket-view
-            class="{{ ($chat->user->position->value === 'admin' || $chat->user->position->value === 'technician' ) ? 'bg-info/20' : '' }}
-            p-3">
+            class="{{ ($chat->user->position->value === 'admin' || 
+                $chat->user->position->value === 'technician' ) ? 'bg-info/20' : '' }} p-3">
             <h3 class="w-full text-left font-bold text-sm">{{ ($chat->user->position->value === 'admin' || $chat->user->position->value === 'technician' ) ? 
                 'Técnico respondeu:' : 'Usuário respondeu:' }}</h3>
 
@@ -56,21 +56,24 @@
                 <button type="submit" class="btn btn-success w-50 float-left">
                     {{ $chats->isEmpty() && auth()->user()->position->value != 'user' ? 'Assumir chamado' : 'Responder' }}
                 </button>
-                <button type="button" onclick="my_modal_1.showModal()" class="btn btn-info w-50 float-left">
-                    Finalizar chamado
-                </button>
+                @can('resolveCall', $ticket)
+                    <button type="button" onclick="my_modal_1.showModal()" class="btn btn-info w-50 float-left">
+                        Resolver chamado
+                    </button>
+                @endcan
             </div>
         </form>
     </x-card-ticket-view>
     @endcan
 @endif
-<dialog id="my_modal_1" class="modal">
-    <div class="modal-box">
-        <h3 class="text-lg font-bold">Hello!</h3>
-        <p class="py-4">Press ESC key or click outside to close</p>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-    </form>
-</dialog>
+
+<x-modal 
+    id="my_modal_1"
+    title="Resolver chamado"
+    description="Tem certeza que deseja resolver o chamado?"
+    href="{{ route('ticket.resolve', $ticket) }}"
+    confirm_button="Resolver"
+>
+</x-modal>
+
 @endsection

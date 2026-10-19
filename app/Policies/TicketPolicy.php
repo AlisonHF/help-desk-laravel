@@ -13,7 +13,7 @@ class TicketPolicy
 {
     public function before(User $user, string $ability): ?bool
     {
-        if ($ability === 'takeOnCall')
+        if (in_array($ability, ['userCanReply', 'resolveCall']))
         {
             return null;
         }
@@ -73,11 +73,23 @@ class TicketPolicy
 
     public function userCanReply(User $user, Ticket $ticket): bool
     {
-        if ($user->position === UserPositions::Technician || $user->position === UserPositions::Admin)
-        {
-            return $ticket->technician_id === $user->id || $ticket->technician_id === null;
+        if ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento || 
+        $ticket->status === TicketStatus::AguardandoUsuario) {
+            if ($user->position === UserPositions::Technician || $user->position === UserPositions::Admin)
+            {
+                return $ticket->technician_id === $user->id || $ticket->technician_id === null;
+            }
+    
+            return $ticket->user_id === $user->id;
         }
 
-        return $ticket->user_id === $user->id;
+        return false;
+    }
+
+    public function resolveCall(User $user, Ticket $ticket): bool
+    {
+        return ($user->position === UserPositions::Technician || $user->position === UserPositions::Admin) &&
+            ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento || 
+                $ticket->status === TicketStatus::AguardandoUsuario);
     }
 }

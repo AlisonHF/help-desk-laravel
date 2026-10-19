@@ -30,6 +30,9 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::delete('/ticket/delete/{ticket}', [TicketController::class, 'delete'])
         ->middleware('can:delete,ticket')
         ->name('ticket.delete');
+    Route::post('ticket/resolveCall/{ticket}', [TicketController::class, 'resolveCall'])
+        ->middleware('can:resolveCall,ticket')
+        ->name('ticket.resolve');
 
     Route::post('chat/store/{ticket}', [ChatController::class, 'store'])->name('chat.store');
 
