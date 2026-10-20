@@ -64,7 +64,6 @@
     </div>
 
     <div class="flex justify-end gap-2 w-full border-t border-base-300 bg-base-200 px-10 py-4 sm:px-20">
-        <button class="btn btn-error w-25">Cancelar</button>
         <button type="submit" class="btn btn-success w-50">Enviar</button>
     </div>
 </form>

@@ -84,15 +84,15 @@ class TicketController extends Controller
 
         switch ($userPosition) {
             case UserPositions::Admin:
-                $tickets = Ticket::get();
+                $tickets = Ticket::paginate();
                 break;
             case UserPositions::Technician:
                 $tickets = Ticket::where('technician_id', $this->user_id)
                 ->orWhere('status', TicketStatus::Aberto)
-                ->get();
+                ->paginate();
                 break;
             default:
-                $tickets = Ticket::where('user_id', $this->user_id)->get();
+                $tickets = Ticket::where('user_id', $this->user_id)->paginate();
                 break;
         }
 
@@ -146,12 +146,20 @@ class TicketController extends Controller
         switch ($userPosition) {
             case UserPositions::Admin:
             case UserPositions::Technician:
-                $tickets = Ticket::whereIn('status', [TicketStatus::Aberto->value, TicketStatus::EmAndamento->value, TicketStatus::AguardandoUsuario->value])->get();
+                $tickets = Ticket::whereIn('status', [
+                    TicketStatus::Aberto->value,
+                    TicketStatus::EmAndamento->value,
+                    TicketStatus::AguardandoUsuario->value
+                ])->paginate();
                 break;
             default:
                 $tickets = Ticket::where([
                     'user_id' => $this->user_id])
-                    ->whereIn('status', [TicketStatus::Aberto->value, TicketStatus::EmAndamento->value, TicketStatus::AguardandoUsuario->value])->get();
+                    ->whereIn('status', [
+                        TicketStatus::Aberto->value,
+                        TicketStatus::EmAndamento->value,
+                        TicketStatus::AguardandoUsuario->value
+                    ])->paginate();
                 break;
         }
 

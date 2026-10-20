@@ -172,6 +172,10 @@
     @endforeach
 </div>
 
+<div class="flex justify-center items-center my-5">
+    {{ $tickets->links() }}
+</div>
+
 @foreach($tickets as $ticket)
     <x-modal
         id="my_modal_{{ $ticket->id }}"
