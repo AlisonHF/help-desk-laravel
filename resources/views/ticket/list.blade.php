@@ -118,13 +118,9 @@
                         @endcan
 
                         @can('delete', $ticket)
-                            <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}" class="flex">
-                                @csrf
-                                @method('DELETE')
-                                <button class="hover:cursor-pointer" type="submit" title="Excluir">
-                                    <x-heroicon-o-trash class="size-5 text-red-600"/>
-                                </button>
-                            </form>
+                            <button class="hover:cursor-pointer" type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
+                                <x-heroicon-o-trash class="size-5 text-red-600"/>
+                            </button>
                         @endcan
                     </td>
                 </tr>
@@ -164,13 +160,10 @@
                         @endcan
 
                         @can('delete', $ticket)
-                            <form method="POST" action="{{ route('ticket.delete', $ticket->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="flex hover:cursor-pointer text-error hover:underline" type="submit" title="Excluir">
-                                    <x-heroicon-o-trash class="size-4"/>Excluir
-                                </button>
-                            </form>
+                            <button class="flex hover:cursor-pointer text-error hover:underline"
+                             type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
+                                <x-heroicon-o-trash class="size-4"/>Excluir
+                            </button>
                         @endcan
                     </div>
                 </div>
@@ -178,4 +171,16 @@
         </div>
     @endforeach
 </div>
+
+@foreach($tickets as $ticket)
+    <x-modal
+        id="my_modal_{{ $ticket->id }}"
+        title="Excluir chamado"
+        description="Tem certeza que deseja excluir o chamado?"
+        href="{{ route('ticket.delete', $ticket) }}"
+        confirm_button="Deletar"
+        :delete="true"
+    ></x-modal>
+@endforeach
+
 @endsection

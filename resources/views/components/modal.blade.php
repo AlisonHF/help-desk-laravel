@@ -3,7 +3,8 @@
     'title',
     'description',
     'href',
-    'confirm_button'
+    'confirm_button',
+    'delete' => false
 ])
 
 <dialog id="{{ $id }}" class="modal">
@@ -14,6 +15,9 @@
         <div class="modal-action">
             <form method="POST" action="{{ $href }}">
                 @csrf
+                @if($delete)
+                    @method('DELETE')
+                @endif
                 <button class="btn btn-info">{{ $confirm_button }}</button>
             </form>
             <form method="dialog">
@@ -22,6 +26,6 @@
         </div>
     </div>
     <form method="dialog" class="modal-backdrop">
-        <button>close</button>
+        <button></button>
     </form>
 </dialog>
