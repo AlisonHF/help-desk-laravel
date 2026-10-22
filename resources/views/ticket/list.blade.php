@@ -1,133 +1,162 @@
 @extends('Layouts.master')
 
 @section('content')
-<form class="grid grid-cols-2 md:grid-cols-5 gap-3 p-2" method="POST" action="{{ route('ticket.list') }}">
-    @csrf
-    <div class="col-span-2 md:col-span-1">
-        <fieldset class="fieldset w-full">
-            <legend>Protocolo</legend>
-            <label class="input input-bordered">
-                <input id="protocolo" name="protocolo"/>
-            </label>
-        </fieldset>
-    </div>
-    <div class="col-span-2">
-        <fieldset class="fieldset">
-            <legend>Título do chamado</legend>
-            <label class="input input-bordered w-full">
-                <input id="titulo" name="titulo"/>
-            </label>
-        </fieldset>
-    </div>
-    <div class="col-span-2">
-        <fieldset class="fieldset">
-            <legend>Categoria</legend>
-            <label class="select select-bordered">
-                <select id="categoria" name="categoria">
-                    <option val="">Selecione</option>
-                </select>
-            </label>
-        </fieldset>
-    </div>
-    @if(!$opensOnly)
-        <div>
+<div class="w-full px-20 py-5">
+    <form class="grid grid-cols-4 md:grid-cols-4 gap-3" method="GET" action="{{ route('ticket.list') }}">
+        <div class="col-span-2 md:col-span-1">
+            <fieldset class="fieldset w-full">
+                <legend>Protocolo</legend>
+                <label class="input input-bordered w-full">
+                    <input id="protocolo" name="protocolo"/>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-2">
             <fieldset class="fieldset">
-                <legend>Status</legend>
-                <label class="select select-bordered">
-                    <select id="status" name="status">
-                        <option val="">Selecione</option>
+                <legend>Título do chamado</legend>
+                <label class="input input-bordered w-full">
+                    <input id="titulo" name="titulo"/>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-2">
+            <fieldset class="fieldset">
+                <legend>Categoria</legend>
+                <label class="select select-bordered w-full">
+                    <select id="categoria" name="categoria">
+                        <option value="">Selecione</option>
+                        @foreach ($categories as $category)
+                            <option
+                                value="{{ $category['id'] }}"
+                                @selected(request('categoria') == $category['id'])
+                            >
+                                {{ $category['description'] }}
+                            </option>
+                        @endforeach
                     </select>
                 </label>
             </fieldset>
         </div>
-    @endif
-    <div>
-        <fieldset class="fieldset">
-            <legend>Tipo de busca por data</legend>
-            <label class="select select-bordered">
-                <select id="tipo_data" name="tipo_data">
-                    <option val="">Selecione</option>
-                </select>
-            </label>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset class="fieldset">
-            <legend>Data inicial</legend>
-            <label class="input input-bordered">
-                <input type="date" id="data_in" name="data_in"/>
-            </label>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset class="fieldset">
-            <legend>Data final</legend>
-            <label class="input input-bordered">
-                <input type="date" id="data_fin" name="data_fin"/>
-            </label>
-        </fieldset>
-    </div>
-
-    <div class="row-auto">
-        <fieldset class="fieldset">
-            <legend>&nbsp</legend>
-            <button class="btn btn-info" type="submit">Pesquisar</button>
-        </fieldset>
-    </div>
-</form>
+        <div class="col-span-1">
+            <fieldset class="fieldset">
+                <legend>Status</legend>
+                <label class="select select-bordered w-full">
+                    <select id="status" name="status">
+                        <option value="">Selecione</option>
+                        @foreach ($statuses as $status)
+                            <option
+                                value="{{ $status->value }}"
+                                @selected(request('status') == $status->value)
+                            >
+                                {{ $status->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-1">
+            <fieldset class="fieldset">
+                <legend>Situação</legend>
+                <label class="select select-bordered w-full">
+                    <select name="situacao">
+                        <option value="">Selecione</option>
+                        @foreach ($groupStatus as $group)
+                            <option 
+                                value="{{ $group->value }}"
+                                @selected(request('situacao') == $group->value)
+                            >{{ $group->label() }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-1">
+            <fieldset class="fieldset">
+                <legend>Data inicial</legend>
+                <label class="input input-bordered w-full">
+                    <input type="date" id="data_in" name="data_in"/>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-1">
+            <fieldset class="fieldset">
+                <legend>Data final</legend>
+                <label class="input input-bordered w-full">
+                    <input type="date" id="data_fin" name="data_fin"/>
+                </label>
+            </fieldset>
+        </div>
+        <div class="col-span-2">
+            &nbsp
+        </div>
+        <div class="col-span-1">
+            <fieldset class="fieldset">
+                <legend>&nbsp</legend>
+                <button class="btn btn-success" type="submit">Pesquisar</button>
+            </fieldset>
+        </div>
+    </form>
+</div>
 
 <div class="flex w-full flex-col">
-  <div class="divider mx-10"></div>
+    <div class="divider mx-10"></div>
 </div>
 
-<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Protocolo</th>
-                <th>Chamado</th>
-                <th>Categoria</th>
-                <th>Status</th>
-                <th>Criado em</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($tickets as $ticket)
-                <tr>
-                    <th>{{ $ticket->id }}</th>
-                    <td class="sm:w-80">{{ $ticket->title }}</td>
-                    <td class="sm:w-40">{{ $ticket->category->description }}</td>
-                    <td class="sm:w-50 min-w-40">
-                        <span class="badge {{ $ticket->status->color() }} rounded-2xl">
-                            {{  $ticket->status->label()  }}
-                        </span>
-                    </td>
-                    <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
-                    <td class="flex flex-row gap-1 h-20 items-center">
-                        @can('view', $ticket)
-                            <a href="{{ route('ticket.view', $ticket->id) }}">
-                                <x-heroicon-o-eye class="size-5" />
-                            </a>
-                        @endcan
+@if(!$tickets->empty())
+    <div class="w-full">
+        <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block mx-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Protocolo</th>
+                        <th>Chamado</th>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                        <th>Criado em</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($tickets as $ticket)
+                        <tr>
+                            <th>{{ $ticket->id }}</th>
+                            <td class="sm:w-80">{{ $ticket->title }}</td>
+                            <td class="sm:w-40">{{ $ticket->category->description }}</td>
+                            <td class="sm:w-50 min-w-40">
+                                <span class="badge {{ $ticket->status->color() }} rounded-2xl">
+                                    {{  $ticket->status->label()  }}
+                                </span>
+                            </td>
+                            <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="flex flex-row gap-1 h-20 items-center">
+                                @can('view', $ticket)
+                                    <a href="{{ route('ticket.view', $ticket->id) }}">
+                                        <x-heroicon-o-eye class="size-5" />
+                                    </a>
+                                @endcan
 
-                        @can('update', $ticket)
-                            <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
-                                <x-heroicon-o-pencil-square class="size-5" />
-                            </a>
-                        @endcan
+                                @can('update', $ticket)
+                                    <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
+                                        <x-heroicon-o-pencil-square class="size-5" />
+                                    </a>
+                                @endcan
 
-                        @can('delete', $ticket)
-                            <button class="hover:cursor-pointer" type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
-                                <x-heroicon-o-trash class="size-5 text-red-600"/>
-                            </button>
-                        @endcan
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                                @can('delete', $ticket)
+                                    <button class="hover:cursor-pointer" type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
+                                        <x-heroicon-o-trash class="size-5 text-red-600"/>
+                                    </button>
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@else
+    <h2 class="font-bold">Nenhum chamado encontrado com esses filtros...</h2>
+@endif
 
 <div class="md:hidden">
     @foreach($tickets as $ticket)

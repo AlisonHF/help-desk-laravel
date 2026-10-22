@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TicketStatus;
+use App\Enums\TicketStatusGroup;
 use App\Enums\UserPositions;
 use App\Models\Category;
 use App\Models\Chat;
@@ -67,7 +68,7 @@ class TicketController extends Controller
 
     }
 
-    public function list()
+    public function list(Request $request)
     {
         $breadcrumbs = [
             ['href' => route('home'), 'name' => 'Home'],
@@ -76,25 +77,55 @@ class TicketController extends Controller
 
         $namePage = 'Listagem de chamados';
 
-        $opensOnly = false;
-
         $tickets = null;
 
         $userPosition = auth()->user()->position;
 
+        $query = Ticket::query();
+
         switch ($userPosition) {
             case UserPositions::Admin:
-                $tickets = Ticket::paginate();
                 break;
             case UserPositions::Technician:
-                $tickets = Ticket::where('technician_id', $this->user_id)
-                ->orWhere('status', TicketStatus::Aberto)
-                ->paginate();
+                $tickets = $query->where(function ($q) {
+                    $q->where('technician_id', $this->user_id)
+                        ->orWhere('status', TicketStatus::Aberto);
+                });
                 break;
             default:
-                $tickets = Ticket::where('user_id', $this->user_id)->paginate();
+                $tickets = $query->where('user_id', $this->user_id);
                 break;
         }
+
+        // Filtros
+
+        if ($request->filled('protocolo')) {
+            $query->where('id', $request->input('protocolo'));
+        }
+        if ($request->filled('titulo')) {
+            $query->whereLike('title', '%' . $request->input('titulo') . '%');
+        }
+        if ($request->filled('categoria')) {
+            $query->where('category_id', $request->input('categoria'));
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->filled('situacao')) {
+            $group = TicketStatusGroup::tryFrom($request->input('situacao'));
+
+            if (!empty($group)) {
+                $query->whereIn('status', $group->statuses());
+            }
+        }
+        if ($request->filled('data_in')) {
+            $query->whereDate('created_at', '>=', $request->input('data_in'));
+        }
+        if ($request->filled('data_fin')) {
+            $query->whereDate('created_at', '<=', $request->input('data_fin'));
+        }
+
+        $tickets = $query->paginate()->withQueryString();
 
         return view(
             'ticket.list',
@@ -102,7 +133,9 @@ class TicketController extends Controller
                 'tickets' => $tickets,
                 'breadcrumbs' => $breadcrumbs,
                 'namePage' => $namePage,
-                'opensOnly' => $opensOnly
+                'categories' => Category::all(),
+                'statuses' => TicketStatus::cases(),
+                'groupStatus' => TicketStatusGroup::cases()
             ]
         );
     }
@@ -124,52 +157,6 @@ class TicketController extends Controller
                 'ticket' => $ticket,
                 'namePage' => 'Visualizar chamado',
                 'chats' => $chats
-            ]
-        );
-    }
-
-    public function ticketsOpen()
-    {
-        $breadcrumbs = [
-            ['href' => route('home'), 'name' => 'Home'],
-            ['href' => '', 'name' => 'Chamados em andamento'],
-        ];
-
-        $opensOnly = true;
-
-        $namePage = 'Listagem de chamados em andamento';
-
-        $tickets = null;
-
-        $userPosition = auth()->user()->position;
-
-        switch ($userPosition) {
-            case UserPositions::Admin:
-            case UserPositions::Technician:
-                $tickets = Ticket::whereIn('status', [
-                    TicketStatus::Aberto->value,
-                    TicketStatus::EmAndamento->value,
-                    TicketStatus::AguardandoUsuario->value
-                ])->paginate();
-                break;
-            default:
-                $tickets = Ticket::where([
-                    'user_id' => $this->user_id])
-                    ->whereIn('status', [
-                        TicketStatus::Aberto->value,
-                        TicketStatus::EmAndamento->value,
-                        TicketStatus::AguardandoUsuario->value
-                    ])->paginate();
-                break;
-        }
-
-        return view(
-            'ticket.list',
-            [
-                'tickets' => $tickets,
-                'breadcrumbs' => $breadcrumbs,
-                'namePage' => $namePage,
-                'opensOnly' => $opensOnly
             ]
         );
     }

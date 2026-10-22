@@ -15,7 +15,6 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/ticket', [TicketController::class, 'list'])->name('ticket.list');
-    Route::get('/ticket/open', [TicketController::class, 'ticketsOpen'])->name('ticket.open');
     Route::get('ticket/view/{ticket}', [TicketController::class,'view'])
         ->middleware('can:view,ticket')
         ->name('ticket.view');

@@ -16,7 +16,7 @@
         icon-class="bg-secondary/15 text-secondary-dark"
         title="Chamados em andamento"
         description="Verifique os chamados em andamento"
-        :href="route('ticket.open')" />
+        :href="route('ticket.list', ['situacao' => 'ativos'])" />
 
     <x-card-home
         icon="heroicon-o-archive-box"
