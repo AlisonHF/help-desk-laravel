@@ -20,7 +20,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $attributes = [
-        'position' => UserPositions::User
+        'position' => UserPositions::Usuario
     ];
 
     /**
@@ -41,7 +41,7 @@ class User extends Authenticatable
     {
         return in_array(
             $this->position,
-            [UserPositions::Admin, UserPositions::Technician],
+            [UserPositions::Admin, UserPositions::Tecnico],
             true
         );
     }

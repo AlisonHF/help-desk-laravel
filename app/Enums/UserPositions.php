@@ -5,15 +5,15 @@
     enum UserPositions: string
     {
         case Admin = 'admin';
-        case Technician = 'technician';
-        case User = 'user';
+        case Tecnico = 'tecnico';
+        case Usuario = 'usuario';
 
         public function label(): string
         {
             return match ($this) {
                 self::Admin => 'Admin',
-                self::Technician => 'Técnico',
-                self::User => 'Usuário',
+                self::Tecnico => 'Técnico',
+                self::Usuario => 'Usuário',
             };
         }
     }

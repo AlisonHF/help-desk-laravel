@@ -20,9 +20,9 @@
 @if(!$chats->isEmpty())
     @foreach ($chats as $chat)
         <x-card-ticket-view
-            class="{{ ($chat->user->position->value === 'admin' || 
-                $chat->user->position->value === 'technician' ) ? 'bg-info/20' : '' }} p-3">
-            <h3 class="w-full text-left font-bold text-sm">{{ ($chat->user->position->value === 'admin' || $chat->user->position->value === 'technician' ) ? 
+            class="{{ ($chat->user->position->value === 'admin' ||
+                $chat->user->position->value === 'tecnico' ) ? 'bg-info/20' : '' }} p-3">
+            <h3 class="w-full text-left font-bold text-sm">{{ ($chat->user->position->value === 'admin' || $chat->user->position->value === 'tecnico' ) ?
                 'Técnico respondeu:' : 'Usuário respondeu:' }}</h3>
 
             <p class="mt-3 mb-10">{{ $chat->message }}</p>
@@ -35,7 +35,7 @@
     @endforeach
 @endif
 
-@if (!$chats->isEmpty() || auth()->user()->position->value != 'user')
+@if (!$chats->isEmpty() || auth()->user()->position->value != 'usuario')
     @can('userCanReply', $ticket)
     <x-card-ticket-view class="bg-primary/20">
         <form
@@ -54,7 +54,7 @@
 
             <div class="mt-3 flex gap-3">
                 <button type="submit" class="btn btn-success w-50 float-left">
-                    {{ $chats->isEmpty() && auth()->user()->position->value != 'user' ? 'Assumir chamado' : 'Responder' }}
+                    {{ $chats->isEmpty() && auth()->user()->position->value != 'usuario' ? 'Assumir chamado' : 'Responder' }}
                 </button>
                 @can('resolveCall', $ticket)
                     <button type="button" onclick="my_modal_1.showModal()" class="btn btn-info w-50 float-left">

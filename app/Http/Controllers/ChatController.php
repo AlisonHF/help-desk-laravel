@@ -51,14 +51,14 @@ class ChatController extends Controller
      
             switch ($positionUser) {
                 case (UserPositions::Admin):
-                case (UserPositions::Technician): 
+                case (UserPositions::Tecnico):
                     if ($statusTicket === TicketStatus::Aberto || $statusTicket === TicketStatus::EmAndamento) {
                         $ticket->update(['status' => TicketStatus::AguardandoUsuario]);
                         $newStatus = TicketStatus::AguardandoUsuario;
                     }
 
                     break;
-                case (UserPositions::User):
+                case (UserPositions::Usuario):
                     if ($statusTicket === TicketStatus::AguardandoUsuario) {
                         $ticket->update(['status' => TicketStatus::EmAndamento]);
                         $newStatus = TicketStatus::EmAndamento;

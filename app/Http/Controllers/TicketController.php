@@ -86,7 +86,7 @@ class TicketController extends Controller
         switch ($userPosition) {
             case UserPositions::Admin:
                 break;
-            case UserPositions::Technician:
+            case UserPositions::Tecnico:
                 $tickets = $query->where(function ($q) {
                     $q->where('technician_id', $this->user_id)
                         ->orWhere('status', TicketStatus::Aberto);
