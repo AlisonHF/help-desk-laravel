@@ -93,7 +93,7 @@
         <div class="col-span-1">
             <fieldset class="fieldset">
                 <legend>&nbsp</legend>
-                <button class="btn btn-success" type="submit">Pesquisar</button>
+                <button class="btn btn-primary" type="submit">Pesquisar</button>
             </fieldset>
         </div>
     </form>
@@ -105,9 +105,9 @@
 
 @if(!$tickets->isEmpty())
     <div class="w-full">
-        <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block mx-10">
+        <div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100 hidden md:block mx-10">
             <table class="table">
-                <thead>
+                <thead class="text-ink-muted">
                     <tr>
                         <th>Protocolo</th>
                         <th>Chamado</th>
@@ -119,32 +119,34 @@
                 </thead>
                 <tbody>
                     @foreach($tickets as $ticket)
-                        <tr>
-                            <th>{{ $ticket->id }}</th>
-                            <td class="sm:w-80">{{ $ticket->title }}</td>
-                            <td class="sm:w-40">{{ $ticket->category->description }}</td>
+                        <tr class="hover:bg-base-200 transition-colors">
+                            <th class="tabular-nums font-medium text-ink-muted">{{ $ticket->id }}</th>
+                            <td class="sm:w-80 font-medium">{{ $ticket->title }}</td>
+                            <td class="sm:w-40 text-ink-muted">{{ $ticket->category->description }}</td>
                             <td class="sm:w-50 min-w-40">
-                                <span class="badge {{ $ticket->status->color() }} rounded-2xl">
+                                <span class="badge {{ $ticket->status->color() }}">
                                     {{  $ticket->status->label()  }}
                                 </span>
                             </td>
-                            <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="text-ink-muted tabular-nums">{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                             <td class="flex flex-row gap-1 h-20 items-center">
                                 @can('view', $ticket)
-                                    <a href="{{ route('ticket.view', $ticket->id) }}">
+                                    <a href="{{ route('ticket.view', $ticket->id) }}" title="Visualizar"
+                                       class="text-ink-faint hover:text-primary transition-colors">
                                         <x-heroicon-o-eye class="size-5" />
                                     </a>
                                 @endcan
 
                                 @can('update', $ticket)
-                                    <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar">
+                                    <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar"
+                                       class="text-ink-faint hover:text-primary transition-colors">
                                         <x-heroicon-o-pencil-square class="size-5" />
                                     </a>
                                 @endcan
 
                                 @can('delete', $ticket)
-                                    <button class="hover:cursor-pointer" type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
-                                        <x-heroicon-o-trash class="size-5 text-red-600"/>
+                                    <button class="hover:cursor-pointer text-ink-faint hover:text-error transition-colors" type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
+                                        <x-heroicon-o-trash class="size-5"/>
                                     </button>
                                 @endcan
                             </td>
@@ -157,30 +159,30 @@
 
     <div class="md:hidden">
         @foreach($tickets as $ticket)
-            <div class="card w-90 sm:w-110 bg-base-100 card-xs shadow-sm mb-3">
+            <div class="card w-90 sm:w-110 bg-base-100 card-xs border border-base-content/10 mb-3">
                 <div class="card-body">
                     <div class="justify-between flex">
-                        <span class="badge {{ $ticket->status->color() }} rounded-2xl text-[10px] p-2">
-                            <b>{{ $ticket->status->label() }}</b>
+                        <span class="badge {{ $ticket->status->color() }} text-[10px] p-2 font-medium">
+                            {{ $ticket->status->label() }}
                         </span>
-                        <span class="ml-auto">{{ $ticket->created_at->format('d/m/Y H:i') }}</span>
+                        <span class="ml-auto text-ink-muted tabular-nums">{{ $ticket->created_at->format('d/m/Y H:i') }}</span>
                     </div>
 
                     <h2 class="card-title">{{ $ticket->title }}</h2>
 
-                    <p class="truncate">{{ $ticket->description }}</p>
+                    <p class="truncate text-ink-muted">{{ $ticket->description }}</p>
 
                     <div class="flex items-center justify-between gap-2 border-t border-base-content/10 pt-2 mt-1">
-                        <span class="min-w-0 truncate">{{ $ticket->category->description }}</span>
+                        <span class="min-w-0 truncate text-ink-muted">{{ $ticket->category->description }}</span>
 
                         <div class="flex gap-2 shrink-0">
                             @can('view', $ticket)
-                                <a href="{{ route('ticket.view', $ticket->id) }}" class="flex hover:underline">
+                                <a href="{{ route('ticket.view', $ticket->id) }}" class="flex hover:underline text-ink-muted">
                                     <x-heroicon-o-eye class="size-4" />Visualizar
                                 </a>
                             @endcan
                             @can('update', $ticket)
-                                <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
+                                <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline text-ink-muted">
                                     <x-heroicon-o-pencil-square class="size-4" />Editar
                                 </a>
                             @endcan
@@ -198,7 +200,7 @@
         @endforeach
     </div>
 @else
-    <h2 class="font-bold">Nenhum chamado encontrado com esses filtros...</h2>
+    <h2 class="text-ink-muted">Nenhum chamado encontrado com esses filtros...</h2>
 @endif
 
 <div class="flex justify-center items-center my-5">

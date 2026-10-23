@@ -24,14 +24,14 @@
 
         <div class="text-center mb-3">
             <a href="#" class="link link-primary block">Esqueceu sua senha?</a>
-            <span class="inline">
+            <span class="inline text-ink-muted">
                 Não tem uma conta?
                 <a href="{{ Route('register') }}" class="link link-primary">cadastre-se</a>
             </span>
         </div>
 
         <div class="flex w-50">
-            <button type="submit" class="btn btn-success w-full">Login</button>
+            <button type="submit" class="btn btn-primary w-full">Login</button>
         </div>
     </form>
 </x-card-auth>

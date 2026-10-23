@@ -1,8 +1,8 @@
 @extends('Layouts.master')
 
 @section('content')
-<h1 class="w-full px-5 pt-5 text-center bold text-2xl">Bem vindo {{ $user }}</h1>
-<small class="pb-5">O que faremos hoje?</small>
+<h1 class="w-full px-5 pt-5 text-center font-semibold tracking-tight text-2xl">Bem vindo {{ $user }}</h1>
+<small class="pb-5 text-ink-muted">O que faremos hoje?</small>
 <div class="flex gap-3 flex-wrap items-center justify-center mb-3">
     <x-card-home
         icon="heroicon-o-plus-circle"

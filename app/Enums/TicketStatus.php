@@ -14,24 +14,24 @@
         public function label(): string
         {
             return match ($this) {
-                self::Aberto => 'Aberto',
-                self::EmAndamento => 'Em andamento',
+                self::Aberto            => 'Aberto',
+                self::EmAndamento       => 'Em andamento',
                 self::AguardandoUsuario => 'Aguardando usuário',
-                self::Resolvido => 'Resolvido',
-                self::Finalizado => 'Finalizado',
-                self::Cancelado => 'Cancelado'
+                self::Resolvido         => 'Resolvido',
+                self::Finalizado        => 'Finalizado',
+                self::Cancelado         => 'Cancelado'
             };
         }
 
         public function color(): string
         {
             return match ($this) {
-                self::Aberto      => 'badge-accent',
-                self::EmAndamento => 'badge-secondary',
-                self::AguardandoUsuario => 'badge-neutral',
-                self::Resolvido => 'badge-info',
-                self::Finalizado  => 'badge-success',
-                self::Cancelado => 'badge-error'
+                self::Aberto            => 'badge-soft badge-info',
+                self::EmAndamento       => 'badge-soft badge-warning',
+                self::AguardandoUsuario => 'badge-soft badge-secondary',
+                self::Resolvido         => 'badge-soft badge-accent',
+                self::Finalizado        => 'badge-soft badge-success',
+                self::Cancelado         => 'badge-soft badge-neutral'
             };
         }
     }

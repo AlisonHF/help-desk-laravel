@@ -27,7 +27,7 @@
             <label class="input input-bordered w-full">
                 <input name="password" type="password" maxlength="32" />
             </label>
-            <small class="label">A senha deve conter no minímo 8 caracteres</small>
+            <small class="label text-ink-muted">A senha deve conter no minímo 8 caracteres</small>
             @error('password')
                 <p class="text-error text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -43,11 +43,11 @@
         </fieldset>
 
         <div class="text-center my-2">
-            <span class="inline">Já tem uma conta? <a href="{{ Route('login') }}" class="link link-primary">faça login</a></span>
+            <span class="inline text-ink-muted">Já tem uma conta? <a href="{{ Route('login') }}" class="link link-primary">faça login</a></span>
         </div>
 
         <div class="flex w-50">
-            <button type="submit" class="btn btn-success w-full">Cadastrar</button>
+            <button type="submit" class="btn btn-primary w-full">Cadastrar</button>
         </div>
     </form>
 </x-card-auth>

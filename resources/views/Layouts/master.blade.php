@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-theme="lemonade">
+<html lang="pt-br" data-theme="helpdesk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +8,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-base-100">
     @auth
-        <!-- Navbar -->
-        <nav class="navbar w-full bg-base-300 border-b border-base-content/10 sticky top-0 z-30">
+        <nav class="navbar w-full bg-base-100 border-b border-base-content/10 sticky top-0 z-30">
             <div class="navbar-start">
-                <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button">
+                <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button text-ink-muted">
                     <x-heroicon-o-bars-3 class="my-1.5 inline-block size-5" />
                 </label>
                 <div class="text-xl">
-                    <a href="{{ route('home') }}" class="px-4">
+                    <a href="{{ route('home') }}" class="px-4 font-semibold">
                         Help<span class="text-primary font-medium tracking-widest">Desk</span>
                     </a>
                 </div>
@@ -26,10 +25,10 @@
             <div class="navbar-end">
                 <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                     <div class="avatar avatar-placeholder cursor-pointer">
-                        <div tabindex="0" role="button" class="bg-primary/70 w-8 rounded-full m-1">
-                            <span class="text-xs">{{ auth()->user()->initial() }}</span>
+                        <div tabindex="0" role="button" class="bg-primary text-primary-content w-8 rounded-full m-1">
+                            <span class="text-xs font-medium">{{ auth()->user()->initial() }}</span>
                         </div>
-                        <ul tabindex="-1" class="dropdown-content menu bg-base-200 rounded-box z-1 w-30 p-2 shadown-sm">
+                        <ul tabindex="-1" class="dropdown-content menu bg-base-100 border border-base-content/10 rounded-box shadow-lg z-1 w-30 p-2">
                             <form method="POST" action="{{ route('logout') }}" class="">
                                 <li class="">                                    
                                     @csrf
@@ -53,12 +52,12 @@
 
             <div class="drawer-side is-drawer-close:overflow-visible">
                 <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="flex min-h-full flex-col items-start bg-base-300 is-drawer-close:w-14 is-drawer-open:w-64">
+                <div class="flex min-h-full flex-col items-start bg-base-200 border-r border-base-content/10 is-drawer-close:w-14 is-drawer-open:w-64">
                     <!-- Sidebar content here -->
-                    <ul class="menu w-max grow">
+                    <ul class="menu w-max grow text-ink-muted">
                         <!-- List item -->
                         <li>
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('home') }}" @class(['menu-active' => request()->routeIs('home')])>
                                 <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Página inicial">
                                     <x-heroicon-o-home class="my-1.5 inline-block size-5" />
                                     <span class="is-drawer-close:hidden">Página inicial</span>
@@ -67,7 +66,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('ticket.new') }}">
+                            <a href="{{ route('ticket.new') }}" @class(['menu-active' => request()->routeIs('ticket.new')])>
                                 <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Novo chamado">
                                     <x-heroicon-o-plus-circle class="my-1.5 inline-block size-5" />
                                     <span class="is-drawer-close:hidden">Novo chamado</span>
@@ -85,7 +84,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('ticket.list') }}">
+                            <a href="{{ route('ticket.list') }}" @class(['menu-active' => request()->routeIs('ticket.list')])>
                                 <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Histórico de chamados">
                                     <x-heroicon-o-archive-box class="my-1.5 inline-block size-5" />
                                     <span class="is-drawer-close:hidden">Histórico de chamados</span>
@@ -97,9 +96,9 @@
             </div>
         </div>
     @else
-        <nav class="navbar w-full bg-base-300 shadow-sm">
+        <nav class="navbar w-full bg-base-100 border-b border-base-content/10">
             <div class="text-xl">
-                <a href="{{ route('home') }}" class="px-4">
+                <a href="{{ route('home') }}" class="px-4 font-semibold">
                     Help<span class="text-primary font-medium tracking-widest">Desk</span>
                 </a>
             </div>

@@ -4,7 +4,7 @@
 <form
     method="POST"
     action="{{ isset($ticket) ? route('ticket.update', $ticket) : route('ticket.store') }}"
-    class="flex flex-col items-center rounded-2xl shadow-sm/50 overflow-hidden lg:w-250"
+    class="flex flex-col items-center rounded-box bg-base-100 border border-base-content/10 overflow-hidden lg:w-250"
 >
     @csrf
 
@@ -28,7 +28,7 @@
             @error('title')
                 <span class="text-error text-sm">{{ $message }}</span>
             @else
-                <small class="text-xs">Resuma o problema em uma frase</small>
+                <small class="text-xs text-ink-muted">Resuma o problema em uma frase</small>
             @enderror
         </fieldset>
 
@@ -63,8 +63,8 @@
         </fieldset>
     </div>
 
-    <div class="flex justify-end gap-2 w-full border-t border-base-300 bg-base-200 px-10 py-4 sm:px-20">
-        <button type="submit" class="btn btn-success w-50">Enviar</button>
+    <div class="flex justify-end gap-2 w-full border-t border-base-content/10 bg-base-200 px-10 py-4 sm:px-20">
+        <button type="submit" class="btn btn-primary w-50">Enviar</button>
     </div>
 </form>
 

@@ -10,7 +10,7 @@
 <dialog id="{{ $id }}" class="modal">
     <div class="modal-box">
         <h3 class="text-lg font-bold">{{ $title }}</h3>
-        <p class="py-4">{{ $description }}</p>
+        <p class="py-4 text-ink-muted">{{ $description }}</p>
 
         <div class="modal-action">
             <form method="POST" action="{{ $href }}">
@@ -18,10 +18,10 @@
                 @if($delete)
                     @method('DELETE')
                 @endif
-                <button class="btn btn-info">{{ $confirm_button }}</button>
+                <button class="btn {{ $delete ? 'btn-error' : 'btn-primary' }}">{{ $confirm_button }}</button>
             </form>
             <form method="dialog">
-                <button class="btn btn-error">Cancelar</button>
+                <button class="btn btn-ghost">Cancelar</button>
             </form>
         </div>
     </div>
