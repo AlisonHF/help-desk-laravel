@@ -1,7 +1,7 @@
 @extends('Layouts.master')
 
 @section('content')
-<div class="w-full px-20 py-5">
+<div class="max-w-full mx-10 px-20 py-5 border rounded-xl border-ink-faint/40">
     <form class="grid grid-cols-4 md:grid-cols-4 gap-3" method="GET" action="{{ route('ticket.list') }}">
         <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset w-full">
@@ -157,9 +157,9 @@
         </div>
     </div>
 
-    <div class="md:hidden">
+    <div class="md:hidden grid grid-rows-1 gap-4 mx-2">
         @foreach($tickets as $ticket)
-            <div class="card w-90 sm:w-110 bg-base-100 card-xs border border-base-content/10 mb-3">
+            <div class="card w-full min-w-0 bg-base-100 card-xs border border-base-content/10">
                 <div class="card-body">
                     <div class="justify-between flex">
                         <span class="badge {{ $ticket->status->color() }} text-[10px] p-2 font-medium">

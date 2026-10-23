@@ -1,6 +1,6 @@
 @if (isset($namePage))
     <div>
-        <h2 class="text-2xl font-semibold tracking-tight mt-3 mb-2 mx-5 text-center">{{ $namePage }}</h2>
+        <h1 class="text-2xl font-semibold tracking-tight mt-3 mb-2 mx-5 text-center">{{ $namePage }}</h1>
     </div>
 @endif
 
@@ -14,7 +14,7 @@
     </div>
 @endif
 
-<main class="flex flex-col items-center flex-1">
+<main class="flex flex-col">
     <x-toast />
     @yield('content')
 </main>

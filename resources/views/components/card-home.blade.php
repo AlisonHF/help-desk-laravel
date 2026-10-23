@@ -6,7 +6,7 @@
     'iconClass' => 'bg-primary/10 text-primary-dark'
 ])
 
-<div {{ $attributes->merge(['class' => 'card w-70 bg-base-100 card-sm border border-base-content/10']) }}>
+<div {{ $attributes->merge(['class' => 'card bg-base-100 card-sm border border-base-content/10']) }}>
     <div class="card-body">
         <div class="rounded w-min {{ $iconClass }}">
             <x-dynamic-component :component="$icon" class="size-8 m-1" />
