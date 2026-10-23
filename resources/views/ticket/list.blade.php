@@ -103,7 +103,7 @@
     <div class="divider mx-10"></div>
 </div>
 
-@if(!$tickets->empty())
+@if(!$tickets->isEmpty())
     <div class="w-full">
         <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 hidden md:block mx-10">
             <table class="table">
@@ -154,52 +154,52 @@
             </table>
         </div>
     </div>
-@else
-    <h2 class="font-bold">Nenhum chamado encontrado com esses filtros...</h2>
-@endif
 
-<div class="md:hidden">
-    @foreach($tickets as $ticket)
-        <div class="card w-90 sm:w-110 bg-base-100 card-xs shadow-sm mb-3">
-            <div class="card-body">
-                <div class="justify-between flex">
-                    <span class="badge {{ $ticket->status->color() }} rounded-2xl text-[10px] p-2">
-                        <b>{{ $ticket->status->label() }}</b>
-                    </span>
-                    <span class="ml-auto">{{ $ticket->created_at->format('d/m/Y H:i') }}</span>
-                </div>
+    <div class="md:hidden">
+        @foreach($tickets as $ticket)
+            <div class="card w-90 sm:w-110 bg-base-100 card-xs shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="justify-between flex">
+                        <span class="badge {{ $ticket->status->color() }} rounded-2xl text-[10px] p-2">
+                            <b>{{ $ticket->status->label() }}</b>
+                        </span>
+                        <span class="ml-auto">{{ $ticket->created_at->format('d/m/Y H:i') }}</span>
+                    </div>
 
-                <h2 class="card-title">{{ $ticket->title }}</h2>
+                    <h2 class="card-title">{{ $ticket->title }}</h2>
 
-                <p class="truncate">{{ $ticket->description }}</p>
+                    <p class="truncate">{{ $ticket->description }}</p>
 
-                <div class="flex items-center justify-between gap-2 border-t border-base-content/10 pt-2 mt-1">
-                    <span class="min-w-0 truncate">{{ $ticket->category->description }}</span>
+                    <div class="flex items-center justify-between gap-2 border-t border-base-content/10 pt-2 mt-1">
+                        <span class="min-w-0 truncate">{{ $ticket->category->description }}</span>
 
-                    <div class="flex gap-2 shrink-0">
-                        @can('view', $ticket)
-                            <a href="{{ route('ticket.view', $ticket->id) }}" class="flex hover:underline">
-                                <x-heroicon-o-eye class="size-4" />Visualizar
-                            </a>
-                        @endcan
-                        @can('update', $ticket)
-                            <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
-                                <x-heroicon-o-pencil-square class="size-4" />Editar
-                            </a>
-                        @endcan
+                        <div class="flex gap-2 shrink-0">
+                            @can('view', $ticket)
+                                <a href="{{ route('ticket.view', $ticket->id) }}" class="flex hover:underline">
+                                    <x-heroicon-o-eye class="size-4" />Visualizar
+                                </a>
+                            @endcan
+                            @can('update', $ticket)
+                                <a href="{{ route('ticket.edit', $ticket->id) }}" title="Editar" class="flex hover:underline">
+                                    <x-heroicon-o-pencil-square class="size-4" />Editar
+                                </a>
+                            @endcan
 
-                        @can('delete', $ticket)
-                            <button class="flex hover:cursor-pointer text-error hover:underline"
-                             type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
-                                <x-heroicon-o-trash class="size-4"/>Excluir
-                            </button>
-                        @endcan
+                            @can('delete', $ticket)
+                                <button class="flex hover:cursor-pointer text-error hover:underline"
+                                type="button" onclick="my_modal_{{ $ticket->id }}.showModal()" title="Excluir">
+                                    <x-heroicon-o-trash class="size-4"/>Excluir
+                                </button>
+                            @endcan
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
-</div>
+        @endforeach
+    </div>
+@else
+    <h2 class="font-bold">Nenhum chamado encontrado com esses filtros...</h2>
+@endif
 
 <div class="flex justify-center items-center my-5">
     {{ $tickets->links() }}
