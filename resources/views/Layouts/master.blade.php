@@ -54,44 +54,55 @@
                 <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                 <div class="flex min-h-full flex-col items-start bg-base-200 border-r border-base-content/10 is-drawer-close:w-14 is-drawer-open:w-64">
                     <!-- Sidebar content here -->
-                    <ul class="menu w-max grow text-ink-muted">
-                        <!-- List item -->
-                        <li>
-                            <a href="{{ route('home') }}" @class(['menu-active' => request()->routeIs('home')])>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Página inicial">
-                                    <x-heroicon-o-home class="my-1.5 inline-block size-5" />
-                                    <span class="is-drawer-close:hidden">Página inicial</span>
-                                </button>
-                            </a>
-                        </li>
+                    <ul class="menu w-full grow text-ink-muted gap-1">
+    <li>
+        <a
+            href="{{ route('home') }}"
+            @class(['menu-active' => request()->routeIs('home')])
+            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            data-tip="Página inicial"
+        >
+            <x-heroicon-o-home class="my-1.5 inline-block size-5 shrink-0" />
+            <span class="is-drawer-close:hidden">Página inicial</span>
+        </a>
+    </li>
 
-                        <li>
-                            <a href="{{ route('ticket.new') }}" @class(['menu-active' => request()->routeIs('ticket.new')])>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Novo chamado">
-                                    <x-heroicon-o-plus-circle class="my-1.5 inline-block size-5" />
-                                    <span class="is-drawer-close:hidden">Novo chamado</span>
-                                </button>
-                            </a>
-                        </li>
+    <li>
+        <a
+            href="{{ route('ticket.new') }}"
+            @class(['menu-active' => request()->routeIs('ticket.new')])
+            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            data-tip="Novo chamado"
+        >
+            <x-heroicon-o-plus-circle class="my-1.5 inline-block size-5 shrink-0" />
+            <span class="is-drawer-close:hidden">Novo chamado</span>
+        </a>
+    </li>
 
-                        <li>
-                            <a href="#">
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Chamados em aberto">
-                                    <x-heroicon-o-chat-bubble-bottom-center class="my-1.5 inline-block size-5" />
-                                    <span class="is-drawer-close:hidden">Chamados em aberto</span>
-                                </button>
-                            </a>
-                        </li>
+    <li>
+        <a
+            href="{{ route('ticket.list', ['situacao' => 'ativos']) }}"
+            @class(['menu-active' => request()->fullUrlIs(route('ticket.list') . '?situacao=ativos')])
+            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            data-tip="Chamados em aberto"
+        >
+            <x-heroicon-o-chat-bubble-bottom-center class="my-1.5 inline-block size-5 shrink-0" />
+            <span class="is-drawer-close:hidden">Chamados em aberto</span>
+        </a>
+    </li>
 
-                        <li>
-                            <a href="{{ route('ticket.list') }}" @class(['menu-active' => request()->routeIs('ticket.list')])>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Histórico de chamados">
-                                    <x-heroicon-o-archive-box class="my-1.5 inline-block size-5" />
-                                    <span class="is-drawer-close:hidden">Histórico de chamados</span>
-                                </button>
-                            </a>
-                        </li>
-                    </ul>
+    <li>
+        <a
+            href="{{ route('ticket.list') }}"
+            @class(['menu-active' => request()->routeIs('ticket.list') && !request()->has('situacao')])
+            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            data-tip="Histórico de chamados"
+        >
+            <x-heroicon-o-archive-box class="my-1.5 inline-block size-5 shrink-0" />
+            <span class="is-drawer-close:hidden">Histórico de chamados</span>
+        </a>
+    </li>
+</ul>
                 </div>
             </div>
         </div>
