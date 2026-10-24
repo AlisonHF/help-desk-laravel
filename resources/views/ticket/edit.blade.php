@@ -5,7 +5,7 @@
     <form
         method="POST"
         action="{{ isset($ticket) ? route('ticket.update', $ticket) : route('ticket.store') }}"
-        class="flex flex-col items-center rounded-box bg-base-100 border border-base-content/10 overflow-hidden lg:w-250"
+        class="flex flex-col items-center rounded-box bg-base-100 border border-base-content/10 overflow-hidden sm:w-150 lg:w-230"
     >
         @csrf
 
@@ -13,7 +13,7 @@
             @method('PATCH')
         @endif
 
-        <div class="flex flex-col items-center w-full px-10 py-3 sm:px-20">
+        <div class="flex flex-col items-center w-full px-10 py-3">
             <fieldset class="fieldset w-full">
                 <legend class="fieldset-legend">Titulo</legend>
                 <label class="input input-bordered w-full">
@@ -64,7 +64,7 @@
             </fieldset>
         </div>
 
-        <div class="flex justify-end gap-2 w-full border-t border-base-content/10 bg-base-200 px-10 py-4 sm:px-20">
+        <div class="flex justify-end gap-2 w-full border-t border-base-content/10 bg-base-200 px-10 py-4">
             <button type="submit" class="btn btn-primary w-50">Enviar</button>
         </div>
     </form>

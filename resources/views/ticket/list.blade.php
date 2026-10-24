@@ -1,7 +1,7 @@
 @extends('Layouts.master')
 
 @section('content')
-<div class="max-w-full mx-10 px-20 py-5 border rounded-xl border-ink-faint/40">
+<div class="max-w-full mx-10 px-20 py-5 rounded-box border border-base-content/10">
     <form class="grid grid-cols-4 md:grid-cols-4 gap-3" method="GET" action="{{ route('ticket.list') }}">
         <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset w-full">
@@ -11,7 +11,7 @@
                 </label>
             </fieldset>
         </div>
-        <div class="col-span-2">
+        <div class="col-span-4 md:col-span-3">
             <fieldset class="fieldset">
                 <legend>Título do chamado</legend>
                 <label class="input input-bordered w-full">
@@ -37,7 +37,7 @@
                 </label>
             </fieldset>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset">
                 <legend>Status</legend>
                 <label class="select select-bordered w-full">
@@ -55,7 +55,7 @@
                 </label>
             </fieldset>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset">
                 <legend>Situação</legend>
                 <label class="select select-bordered w-full">
@@ -71,7 +71,7 @@
                 </label>
             </fieldset>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset">
                 <legend>Data inicial</legend>
                 <label class="input input-bordered w-full">
@@ -79,7 +79,7 @@
                 </label>
             </fieldset>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
             <fieldset class="fieldset">
                 <legend>Data final</legend>
                 <label class="input input-bordered w-full">
