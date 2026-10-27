@@ -3,11 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\TicketResolved;
-use App\Models\User;
 use App\Notifications\TicketResolvedNotification;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class SendTicketResolvedNotification
 {
@@ -24,8 +20,10 @@ class SendTicketResolvedNotification
      */
     public function handle(TicketResolved $event): void
     {
-        $dest = User::find($event->ticket->user_id);
+        if ($event->ticket->user_id === $event->actor->id) {
+            return;
+        }
 
-        Notification::send($dest, new TicketResolvedNotification($event->ticket, $event->actor));
+        $event->ticket->user->notify(new TicketResolvedNotification($event->ticket, $event->actor));
     }
 }
