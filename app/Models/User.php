@@ -8,6 +8,8 @@ use App\Enums\UserPositions;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,7 +43,7 @@ class User extends Authenticatable
     {
         return in_array(
             $this->position,
-            [UserPositions::Admin, UserPositions::Tecnico],
+            UserPositions::technicianRoles(),
             true
         );
     }
@@ -49,5 +51,11 @@ class User extends Authenticatable
     public function initial(): string
     {
         return $this->name[0];
+    }
+
+    #[Scope]
+    protected function technicians(Builder $query): void
+    {
+        $query->whereIn('position', UserPositions::technicianRoles());
     }
 }

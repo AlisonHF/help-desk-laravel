@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\TicketStatus;
 use App\Enums\TicketStatusGroup;
 use App\Enums\UserPositions;
+use App\Events\TicketCreated;
+use App\Events\TicketResolved;
 use App\Models\Category;
 use App\Models\Chat;
 use App\Models\Ticket;
@@ -55,6 +57,7 @@ class TicketController extends Controller
             $data['user_id'] = $this->user_id;
     
             $ticket = Ticket::create($data);
+            TicketCreated::dispatch($ticket, auth()->user());
 
             Log::info("Ticket: $ticket->id | criado pelo usuario: $this->user_id");
     
@@ -230,6 +233,8 @@ class TicketController extends Controller
             $ticket->update([
                 'status' => TicketStatus::Resolvido
             ]);
+
+            TicketResolved::dispatch($ticket, auth()->user());
 
             return redirect('ticket')
                 ->with('success', 'O chamado foi resolvido com sucesso!');

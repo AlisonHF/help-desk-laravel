@@ -16,6 +16,11 @@
                 self::Usuario => 'Usuário',
             };
         }
+
+        public static function technicianRoles(): array
+        {
+            return [self::Admin, self::Tecnico];
+        }
     }
 
 ?>
