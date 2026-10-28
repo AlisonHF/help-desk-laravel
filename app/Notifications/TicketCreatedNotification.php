@@ -5,7 +5,6 @@ namespace App\Notifications;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -54,7 +53,7 @@ class TicketCreatedNotification extends Notification
         return [
             'ticket_id' => $this->ticket->id,
             'actor' => $this->actor->name,
-            'message' => "{$this->actor->name} abriu o chamado #{$this->ticket->id}"
+            'message' => "O usuário {$this->actor->name} abriu um novo chamado #{$this->ticket->id}",
         ];
     }
 }

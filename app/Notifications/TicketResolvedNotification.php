@@ -5,8 +5,6 @@ namespace App\Notifications;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class TicketResolvedNotification extends Notification
@@ -19,8 +17,7 @@ class TicketResolvedNotification extends Notification
     public function __construct(
         public Ticket $ticket,
         public User $actor
-    )
-    {
+    ) {
         //
     }
 
@@ -44,7 +41,7 @@ class TicketResolvedNotification extends Notification
         return [
             'ticket_id' => $this->ticket->id,
             'actor' => $this->actor->name,
-            'message' => "{$this->actor->name} concluiu o chamado #{$this->ticket->id}"
+            'message' => "O técnico {$this->actor->name} concluiu o seu chamado #{$this->ticket->id}",
         ];
     }
 }
