@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,7 @@ Route::middleware(Authenticate::class)->group(function () {
         ->name('ticket.resolve');
 
     Route::post('chat/store/{ticket}', [ChatController::class, 'store'])->name('chat.store');
+
+    Route::get('notification/{id}/read', [NotificationController::class,'read'])->name('notification.read');
 
 });
