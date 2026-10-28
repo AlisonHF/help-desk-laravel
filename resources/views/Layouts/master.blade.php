@@ -65,6 +65,7 @@
                             @class(['menu-active'=> request()->routeIs('home')])
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                             data-tip="Página inicial"
+                            title="Página inicial"
                             >
                             <x-heroicon-o-home class="my-1.5 inline-block size-5 shrink-0" />
                             <span class="is-drawer-close:hidden">Página inicial</span>
@@ -77,6 +78,7 @@
                             @class(['menu-active'=> request()->routeIs('ticket.new')])
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                             data-tip="Novo chamado"
+                            title="Novo chamado"
                             >
                             <x-heroicon-o-plus-circle class="my-1.5 inline-block size-5 shrink-0" />
                             <span class="is-drawer-close:hidden">Novo chamado</span>
@@ -89,6 +91,7 @@
                             @class(['menu-active'=> request()->fullUrlIs(route('ticket.list') . '?situacao=ativos')])
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                             data-tip="Chamados em aberto"
+                            title="Chamados em aberto"
                             >
                             <x-heroicon-o-chat-bubble-bottom-center class="my-1.5 inline-block size-5 shrink-0" />
                             <span class="is-drawer-close:hidden">Chamados em aberto</span>
@@ -101,6 +104,7 @@
                             @class(['menu-active'=> request()->routeIs('ticket.list') && !request()->has('situacao')])
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                             data-tip="Histórico de chamados"
+                            title="Histórico de chamados"
                             >
                             <x-heroicon-o-archive-box class="my-1.5 inline-block size-5 shrink-0" />
                             <span class="is-drawer-close:hidden">Histórico de chamados</span>

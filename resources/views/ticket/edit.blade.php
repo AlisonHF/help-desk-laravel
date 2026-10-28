@@ -64,8 +64,17 @@
             </fieldset>
         </div>
 
-        <div class="flex justify-end gap-2 w-full border-t border-base-content/10 bg-base-200 px-10 py-4">
-            <button type="submit" class="btn btn-primary w-50">Enviar</button>
+        <div class="gap-2 w-full border-t border-base-content/10 bg-base-200 px-5 py-3">
+            <span class="text-ink-muted text-sm">Criado por: 
+                <span class="font-semibold">
+                    {{ $ticket->user->name }}
+                </span>
+                <br/>
+                <span class="font-semibold">
+                    {{ $ticket->created_at->format('d/m/Y H:i') }}
+                </span>
+            </span>
+            <button type="submit" class="btn btn-primary float-right w-50">Enviar</button>
         </div>
     </form>
 </div>
