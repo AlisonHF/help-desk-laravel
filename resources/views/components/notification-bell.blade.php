@@ -44,7 +44,7 @@
         </ul>
 
         <div class="bg-base-200 border-t border-base-300 p-2">
-            <a href="#" class="block text-center text-primary hover:link hover:text-primary-dark">Ver todas</a>
+            <a href="{{ route('notification.list') }}" class="block text-center text-primary hover:link hover:text-primary-dark">Ver todas</a>
         </div>
 
     </div>

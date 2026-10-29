@@ -8,7 +8,7 @@ use App\Http\Controllers\TicketController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index'])->middleware('guest');
 
 /** Auth */
 Route::middleware(Authenticate::class)->group(function () {
@@ -37,4 +37,5 @@ Route::middleware(Authenticate::class)->group(function () {
 
     Route::get('notification/{id}/read', [NotificationController::class, 'read'])->name('notification.read');
     Route::get('notification/readAll', [NotificationController::class, 'readAll'])->name('notification.readall');
+    Route::get('notification/', [NotificationController::class, 'list'])->name('notification.list');
 });
