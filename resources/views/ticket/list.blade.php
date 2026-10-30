@@ -93,7 +93,7 @@
         <div class="col-span-1">
             <fieldset class="fieldset">
                 <legend>&nbsp</legend>
-                <button class="btn btn-primary" type="submit">Pesquisar</button>
+                <button class="btn btn-outline btn-primary" type="submit">Pesquisar</button>
             </fieldset>
         </div>
     </form>

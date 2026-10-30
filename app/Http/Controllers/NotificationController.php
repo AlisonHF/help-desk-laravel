@@ -10,7 +10,7 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
-        return redirect()->route('ticket.view', $notification->data['ticket_id']);
+        return redirect()->back();
     }
 
     public function readAll()

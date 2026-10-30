@@ -128,7 +128,7 @@ class TicketController extends Controller
             $query->whereDate('created_at', '<=', $request->input('data_fin'));
         }
 
-        $tickets = $query->paginate()->withQueryString();
+        $tickets = $query->orderBy('created_at', 'desc')->paginate()->withQueryString();
 
         return view(
             'ticket.list',

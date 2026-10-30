@@ -10,7 +10,7 @@
 
     <div
         tabindex="-1"
-        class="dropdown-content menu bg-base-100 border border-base-content/10 rounded-box shadow-lg z-10 w-100 p-0">
+        class="dropdown-content menu bg-base-100 border border-base-content/10 rounded-box shadow-lg z-10 w-110 p-0">
 
         <div class="bg-base-200 border-b border-base-300 p-2">
             <span class="font-semibold tracking-tight text-sm">Notificações</span>
@@ -25,17 +25,23 @@
             @forelse($notifications as $notification)
                 <li>
                     <div class="flex">
-                        <a href="{{ route('notification.read', $notification->id) }}">
-                            <div class="grid grid-flow-col grid-rows-1 grid-cols-[auto_1fr]">
-                                <div class="flex items-center p-2 mr-2 bg-primary/20 rounded">
-                                    <x-heroicon-o-megaphone class="size-5 text-primary-dark" />
-                                </div>
-                                <div class="">
-                                    <span class="block">{{ $notification->data['message'] }}</span>
-                                    <span class="text-xs text-ink-muted block">{{ $notification->created_at->diffForHumans() }}</span>
-                                </div>
+                        <div class="grid grid-flow-col grid-rows-1 grid-cols-[auto_3fr]">
+                            <div class="flex items-center p-2 mr-2 bg-primary/20 rounded">
+                                <x-heroicon-o-megaphone class="size-5 text-primary-dark" />
                             </div>
-                        </a>
+                            <div class="">
+                                <span class="block">{{ $notification->data['message'] }}</span>
+                                <span class="text-xs text-ink-muted block">{{ $notification->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div class="flex items-center justify-end ml-7">
+                                <form method="POST" action="{{ route('notification.read', $notification->id) }}">
+                                    @method('patch')
+                                    <button type="submit" class="btn btn-ghost btn-md btn-circle" title="Marcar como lida">
+                                        <x-heroicon-o-check-circle class="size-6"></x-heroicon-o-check-circle>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </li>
             @empty
