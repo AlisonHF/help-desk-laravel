@@ -15,7 +15,7 @@ class ChatController extends Controller
     public function store(Request $request, Ticket $ticket)
     {
         $data = $request->validate([
-            'message' => ['required', 'string', 'min:10', 'max:10000']
+            'message' => ['required', 'string', 'min:10', 'max:10000'],
         ]);
 
         try {
@@ -24,8 +24,8 @@ class ChatController extends Controller
 
             $chat = Chat::create([
                 'user_id' => $user_id,
-                'ticket_id'=> $ticket_id,
-                'message' => $data['message']
+                'ticket_id' => $ticket_id,
+                'message' => $data['message'],
             ]);
 
             $this->changeStatus($ticket);
@@ -35,8 +35,8 @@ class ChatController extends Controller
             return redirect()->route('ticket.list')->with('success', 'Resposta cadastrada com sucesso!');
 
         } catch (Exception $e) {
-            Log::error($e->getCode() . ' | ' . $e->getMessage());
-            
+            Log::error($e->getCode().' | '.$e->getMessage());
+
             return redirect()->route('ticket.list')
                 ->with('error', '(300) Não foi possível registrar a resposta, entre em contato com nosso suporte técnico!');
         }
@@ -48,17 +48,17 @@ class ChatController extends Controller
             $statusTicket = $ticket->status;
             $newStatus = '';
             $positionUser = auth()->user()->position;
-     
+
             switch ($positionUser) {
-                case (UserPositions::Admin):
-                case (UserPositions::Tecnico):
+                case UserPositions::Admin:
+                case UserPositions::Tecnico:
                     if ($statusTicket === TicketStatus::Aberto || $statusTicket === TicketStatus::EmAndamento) {
                         $ticket->update(['status' => TicketStatus::AguardandoUsuario]);
                         $newStatus = TicketStatus::AguardandoUsuario;
                     }
 
                     break;
-                case (UserPositions::Usuario):
+                case UserPositions::Usuario:
                     if ($statusTicket === TicketStatus::AguardandoUsuario) {
                         $ticket->update(['status' => TicketStatus::EmAndamento]);
                         $newStatus = TicketStatus::EmAndamento;
@@ -66,9 +66,9 @@ class ChatController extends Controller
             }
 
             Log::info("Ticket $ticket->id teve seu status alterado de $statusTicket->value para $newStatus->value");
-        } catch(Exception $e) {
-            Log::error($e->getCode() . ' | ' . $e->getMessage());
-        
+        } catch (Exception $e) {
+            Log::error($e->getCode().' | '.$e->getMessage());
+
             return redirect()->route('ticket.list')
                 ->with('error', '(400) Não foi possível registrar a resposta, entre em contato com nosso suporte técnico!');
         }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 
 #[UsePolicy(ChatPolicy::class)]
-#[Fillable(["ticket_id", "user_id", "message"])]
+#[Fillable(['ticket_id', 'user_id', 'message'])]
 class Chat extends Model
 {
     public function casts(): array

@@ -2,19 +2,16 @@
 
 namespace App\Policies;
 
-use App\Models\Ticket;
-use App\Models\User;
 use App\Enums\TicketStatus;
 use App\Enums\UserPositions;
-use App\Models\Chat;
-
+use App\Models\Ticket;
+use App\Models\User;
 
 class TicketPolicy
 {
     public function before(User $user, string $ability): ?bool
     {
-        if (in_array($ability, ['userCanReply', 'resolveCall']))
-        {
+        if (in_array($ability, ['userCanReply', 'resolveCall'])) {
             return null;
         }
 
@@ -35,8 +32,13 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $ticket->user_id === $user->id ||
-            $ticket->technician_id === $user->id;
+        if ($user->isTechnician()) {
+            return $ticket->user_id == $user->id || (
+                $ticket->technician_id == $user->id || $ticket->technician_id == null
+            );
+        }
+
+        return $ticket->user_id == $user->id;
     }
 
     /**
@@ -52,11 +54,13 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        if ($ticket->user_id === $user->id) {
-            return $ticket->status === TicketStatus::Aberto;
+        if ($user->isTechnician()) {
+            return $ticket->user_id == $user->id || (
+                $ticket->technician_id == $user->id || $ticket->technician_id == null
+            );
         }
 
-        return $ticket->technician_id === $user->id;
+        return $ticket->user_id == $user->id;
     }
 
     /**
@@ -73,13 +77,12 @@ class TicketPolicy
 
     public function userCanReply(User $user, Ticket $ticket): bool
     {
-        if ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento || 
+        if ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento ||
         $ticket->status === TicketStatus::AguardandoUsuario) {
-            if ($user->position === UserPositions::Tecnico || $user->position === UserPositions::Admin)
-            {
+            if ($user->position === UserPositions::Tecnico || $user->position === UserPositions::Admin) {
                 return $ticket->technician_id === $user->id || $ticket->technician_id === null;
             }
-    
+
             return $ticket->user_id === $user->id;
         }
 
@@ -89,7 +92,7 @@ class TicketPolicy
     public function resolveCall(User $user, Ticket $ticket): bool
     {
         return ($user->position === UserPositions::Tecnico || $user->position === UserPositions::Admin) &&
-            ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento || 
+            ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento ||
                 $ticket->status === TicketStatus::AguardandoUsuario);
     }
 }

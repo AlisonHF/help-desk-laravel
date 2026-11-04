@@ -22,7 +22,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $attributes = [
-        'position' => UserPositions::Usuario
+        'position' => UserPositions::Usuario,
     ];
 
     /**
@@ -35,7 +35,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'position' => UserPositions::class
+            'position' => UserPositions::class,
         ];
     }
 

@@ -29,11 +29,17 @@
                             <div class="flex items-center p-2 mr-2 bg-primary/20 rounded">
                                 <x-heroicon-o-megaphone class="size-5 text-primary-dark" />
                             </div>
-                            <div class="">
+                            <div>
                                 <span class="block">{{ $notification->data['message'] }}</span>
                                 <span class="text-xs text-ink-muted block">{{ $notification->created_at->diffForHumans() }}</span>
                             </div>
                             <div class="flex items-center justify-end ml-7">
+                                <form method="POST" action="{{ route('notification.open', $notification->id) }}">
+                                    @method('patch')
+                                    <button type="submit" class="btn btn-ghost btn-md btn-circle" title="Ver chamado">
+                                        <x-heroicon-o-arrow-right-circle class="size-6"></x-heroicon-o-arrow-right-circle>
+                                    </button>
+                                </form>
                                 <form method="POST" action="{{ route('notification.read', $notification->id) }}">
                                     @method('patch')
                                     <button type="submit" class="btn btn-ghost btn-md btn-circle" title="Marcar como lida">

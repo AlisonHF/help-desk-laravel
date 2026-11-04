@@ -2,9 +2,8 @@
 
 namespace App\Enums;
 
-use App\Enums\TicketStatus;
-
-enum TicketStatusGroup: string {
+enum TicketStatusGroup: string
+{
     case Ativos = 'ativos';
     case Encerrados = 'encerrados';
 
@@ -27,7 +26,7 @@ enum TicketStatusGroup: string {
             self::Encerrados => [
                 TicketStatus::Resolvido->value,
                 TicketStatus::Finalizado->value,
-                TicketStatus::Cancelado->value
+                TicketStatus::Cancelado->value,
             ]
         };
     }

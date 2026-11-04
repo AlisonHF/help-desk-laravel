@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\TicketStatus;
 use App\Policies\TicketPolicy;
-use Database\Factories\TicketFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +21,7 @@ class Ticket extends Model
             'user_id' => 'integer',
             'technician_id' => 'integer',
             'category_id' => 'integer',
-            'status' => TicketStatus::class
+            'status' => TicketStatus::class,
         ];
     }
 

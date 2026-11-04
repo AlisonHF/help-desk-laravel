@@ -21,7 +21,7 @@ return new class extends Migration
         DB::table('categories')->insert([
             ['description' => 'Hardware', 'created_at' => now()],
             ['description' => 'Software', 'created_at' => now()],
-            ['description' => 'Rede', 'created_at' => now()]
+            ['description' => 'Rede', 'created_at' => now()],
         ]);
     }
 

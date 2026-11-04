@@ -25,7 +25,7 @@ class NotificationBell extends Component
 
         return view('components.notification-bell', [
             'notifications' => $user->unreadNotifications()->take(10)->get(),
-            'total' => $user->unreadNotifications()->count()
+            'total' => $user->unreadNotifications()->count(),
         ]);
     }
 }

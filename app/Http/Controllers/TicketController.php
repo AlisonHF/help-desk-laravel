@@ -12,6 +12,7 @@ use App\Models\Chat;
 use App\Models\Ticket;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class TicketController extends Controller
@@ -40,7 +41,7 @@ class TicketController extends Controller
             [
                 'categories' => $categories,
                 'breadcrumbs' => $breadcrumbs,
-                'namePage' => $namePage
+                'namePage' => $namePage,
             ]
         );
     }
@@ -48,23 +49,23 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => ['required', 'string', 'min:5' , 'max:255'],
+            'title' => ['required', 'string', 'min:5', 'max:255'],
             'description' => ['required', 'string', 'min:5', 'max:255'],
-            'category_id' => ['required']
+            'category_id' => ['required'],
         ]);
 
         try {
             $data['user_id'] = $this->user_id;
-    
+
             $ticket = Ticket::create($data);
             TicketCreated::dispatch($ticket, auth()->user());
 
             Log::info("Ticket: $ticket->id | criado pelo usuario: $this->user_id");
-    
+
             return redirect()->route('ticket.list')->with('success', 'Chamado cadastrado com sucesso!');
         } catch (Exception $e) {
-            Log::error($e->getCode() . ' | ' . $e->getMessage());
-            
+            Log::error($e->getCode().' | '.$e->getMessage());
+
             return redirect()->route('ticket.new')
                 ->with('error', 'Não foi possível criar o chamado, entre em contato com nosso suporte técnico!');
         }
@@ -106,7 +107,7 @@ class TicketController extends Controller
             $query->where('id', $request->input('protocolo'));
         }
         if ($request->filled('titulo')) {
-            $query->whereLike('title', '%' . $request->input('titulo') . '%');
+            $query->whereLike('title', '%'.$request->input('titulo').'%');
         }
         if ($request->filled('categoria')) {
             $query->where('category_id', $request->input('categoria'));
@@ -117,7 +118,7 @@ class TicketController extends Controller
         if ($request->filled('situacao')) {
             $group = TicketStatusGroup::tryFrom($request->input('situacao'));
 
-            if (!empty($group)) {
+            if (! empty($group)) {
                 $query->whereIn('status', $group->statuses());
             }
         }
@@ -138,7 +139,7 @@ class TicketController extends Controller
                 'namePage' => $namePage,
                 'categories' => Category::all(),
                 'statuses' => TicketStatus::cases(),
-                'groupStatus' => TicketStatusGroup::cases()
+                'groupStatus' => TicketStatusGroup::cases(),
             ]
         );
     }
@@ -151,6 +152,8 @@ class TicketController extends Controller
             ['href' => '', 'name' => 'Visualizar chamado'],
         ];
 
+        Gate::authorize('view', $ticket);
+
         $chats = Chat::where(['ticket_id' => $ticket->id])->orderBy('created_at', 'asc')->get();
 
         return view(
@@ -159,7 +162,7 @@ class TicketController extends Controller
                 'breadcrumbs' => $breadcrumbs,
                 'ticket' => $ticket,
                 'namePage' => 'Visualizar chamado',
-                'chats' => $chats
+                'chats' => $chats,
             ]
         );
     }
@@ -167,7 +170,7 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         $categories = Category::all();
-        
+
         $breadcrumbs = [
             ['href' => route('home'), 'name' => 'Home'],
             ['href' => route('ticket.list'), 'name' => 'Chamados'],
@@ -175,33 +178,34 @@ class TicketController extends Controller
         ];
 
         $namePage = 'Editar chamado';
+
         return view(
             'ticket.edit',
             [
                 'ticket' => $ticket,
                 'breadcrumbs' => $breadcrumbs,
                 'namePage' => $namePage,
-                'categories' => $categories
+                'categories' => $categories,
             ]
-        ); 
+        );
     }
 
     public function update(Request $request, Ticket $ticket)
     {
         try {
             $data = $request->validate([
-                'title' => ['required', 'string', 'min:5' , 'max:255'],
+                'title' => ['required', 'string', 'min:5', 'max:255'],
                 'description' => ['required', 'string', 'min:5', 'max:255'],
-                'category_id' => ['required']
+                'category_id' => ['required'],
             ]);
-    
+
             $ticket->update($data);
 
             Log::info("Ticket: $ticket->id | atualizado por: $this->user_id");
 
             return redirect('ticket')->with('success', 'Chamado atualizado com sucesso!');
-        } catch(Exception $e) {
-            Log::error($e->getCode() . ' | ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error($e->getCode().' | '.$e->getMessage());
 
             return redirect('ticket')
                 ->with('error', 'Não foi possível atualizar o chamado, entre em contato com nosso suporte técnico!');
@@ -215,12 +219,12 @@ class TicketController extends Controller
             $id = $ticket->id;
 
             $ticket->delete();
-    
+
             Log::info("Ticket: $id | deletado por: $this->user_id");
 
             return redirect('ticket')->with('success', 'Chamado excluído com sucesso!');
-        } catch(Exception $e) {
-            Log::error($e->getCode() . ' | ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error($e->getCode().' | '.$e->getMessage());
 
             return redirect('ticket')
                 ->with('error', 'Não foi possível excluir o chamado, entre em contato com nosso suporte técnico!');
@@ -231,15 +235,15 @@ class TicketController extends Controller
     {
         try {
             $ticket->update([
-                'status' => TicketStatus::Resolvido
+                'status' => TicketStatus::Resolvido,
             ]);
 
             TicketResolved::dispatch($ticket, auth()->user());
 
             return redirect('ticket')
                 ->with('success', 'O chamado foi resolvido com sucesso!');
-        } catch(Exception $e) {
-            Log::error($e->getCode() . ' | '. $e->getMessage());
+        } catch (Exception $e) {
+            Log::error($e->getCode().' | '.$e->getMessage());
 
             return redirect('ticket')
                 ->with('error', 'Não foi possível excluir o chamado, entre em contato com nosso suporte técnico!');

@@ -1,26 +1,24 @@
 <?php
 
-    namespace App\Enums;
+namespace App\Enums;
 
-    enum UserPositions: string
+enum UserPositions: string
+{
+    case Admin = 'admin';
+    case Tecnico = 'tecnico';
+    case Usuario = 'usuario';
+
+    public function label(): string
     {
-        case Admin = 'admin';
-        case Tecnico = 'tecnico';
-        case Usuario = 'usuario';
-
-        public function label(): string
-        {
-            return match ($this) {
-                self::Admin => 'Admin',
-                self::Tecnico => 'Técnico',
-                self::Usuario => 'Usuário',
-            };
-        }
-
-        public static function technicianRoles(): array
-        {
-            return [self::Admin, self::Tecnico];
-        }
+        return match ($this) {
+            self::Admin => 'Admin',
+            self::Tecnico => 'Técnico',
+            self::Usuario => 'Usuário',
+        };
     }
 
-?>
+    public static function technicianRoles(): array
+    {
+        return [self::Admin, self::Tecnico];
+    }
+}

@@ -2,11 +2,6 @@
 
 namespace App\Providers;
 
-use App\Enums\TicketStatus;
-use App\Enums\UserPositions;
-use App\Models\Ticket;
-use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -35,7 +35,8 @@ Route::middleware(Authenticate::class)->group(function () {
 
     Route::post('chat/store/{ticket}', [ChatController::class, 'store'])->name('chat.store');
 
-    Route::patch('notification/{id}/read', [NotificationController::class, 'read'])->name('notification.read');
+    Route::patch('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
+    Route::patch('notification/{notification}', [NotificationController::class, 'open'])->name('notification.open');
     Route::get('notification/readAll', [NotificationController::class, 'readAll'])->name('notification.readall');
     Route::get('notification/', [NotificationController::class, 'list'])->name('notification.list');
 });
