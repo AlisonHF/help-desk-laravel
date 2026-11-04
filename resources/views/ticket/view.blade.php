@@ -20,7 +20,7 @@
 
     @if(!$chats->isEmpty())
         @foreach ($chats as $chat)
-            @php($isStaff = in_array($chat->user->position->value, ['admin', 'tecnico'], true))
+            @php($isStaff = $chat->user_id == $ticket->technician_id)
             <x-card-ticket-view
                 class="p-3"
                 :tone="$isStaff ? 'bg-primary/5 border-primary/20' : 'bg-base-100 border-base-content/10'">

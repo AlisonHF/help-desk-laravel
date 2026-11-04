@@ -26,6 +26,8 @@ class ChatController extends Controller
                 'message' => $data['message'],
             ]);
 
+            $ticket->assignTechnician($user);
+
             $ticket->changeStatus($user);
 
             Log::info("Resposta $chat->id registrada para o ticket: $ticket_id | criado pelo usuario: $user->id");

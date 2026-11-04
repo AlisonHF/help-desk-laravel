@@ -200,7 +200,7 @@
         @endforeach
     </div>
 @else
-    <h2 class="text-ink-muted">Nenhum chamado encontrado com esses filtros...</h2>
+    <h2 class="text-ink-muted text-center">Nenhum chamado encontrado com esses filtros...</h2>
 @endif
 
 <div class="flex justify-center items-center my-5">

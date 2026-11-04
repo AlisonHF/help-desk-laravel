@@ -92,7 +92,8 @@ class TicketController extends Controller
                 break;
             case UserPositions::Tecnico:
                 $tickets = $query->where(function ($q) {
-                    $q->where('technician_id', $this->user_id)
+                    $q->where('user_id', $this->user_id)
+                        ->orWhere('technician_id', $this->user_id)
                         ->orWhere('status', TicketStatus::Aberto);
                 });
                 break;

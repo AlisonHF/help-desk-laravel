@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\TicketStatus;
-use App\Enums\UserPositions;
 use App\Policies\TicketPolicy;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
@@ -45,25 +44,31 @@ class Ticket extends Model
     public function changeStatus(User $user)
     {
         $statusTicket = $this->status;
+
         $newStatus = '';
-        $positionUser = $user->position;
 
-        switch ($positionUser) {
-            case UserPositions::Admin:
-            case UserPositions::Tecnico:
-                if ($statusTicket === TicketStatus::Aberto || $statusTicket === TicketStatus::EmAndamento) {
-                    $this->update(['status' => TicketStatus::AguardandoUsuario]);
-                    $newStatus = TicketStatus::AguardandoUsuario;
-                }
-
-                break;
-            case UserPositions::Usuario:
-                if ($statusTicket === TicketStatus::AguardandoUsuario) {
-                    $this->update(['status' => TicketStatus::EmAndamento]);
-                    $newStatus = TicketStatus::EmAndamento;
-                }
+        if ($user->id == $this->technician_id) {
+            $newStatus = TicketStatus::AguardandoUsuario;
+        } else {
+            $newStatus = TicketStatus::EmAndamento;
         }
 
-        Log::info("Ticket $this->id teve seu status alterado de $statusTicket->value para $newStatus->value");
+        if ($newStatus != $this->status) {
+            $this->update(['status' => $newStatus]);
+
+            Log::info("Ticket #$this->id teve seu status alterado de $statusTicket->value para $newStatus->value");
+        }
+    }
+
+    public function assignTechnician(User $user)
+    {
+        if ($this->technician_id) {
+            return;
+        }
+
+        $this->update(['technician_id' => $user->id]);
+
+        Log::info("Ticket #$this->id teve o técnico $user->id atribuido.");
+
     }
 }

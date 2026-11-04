@@ -80,7 +80,8 @@ class TicketPolicy
         if ($ticket->status === TicketStatus::Aberto || $ticket->status === TicketStatus::EmAndamento ||
         $ticket->status === TicketStatus::AguardandoUsuario) {
             if ($user->position === UserPositions::Tecnico || $user->position === UserPositions::Admin) {
-                return $ticket->technician_id === $user->id || $ticket->technician_id === null;
+                return ($ticket->technician_id === $user->id || $ticket->user_id == $user->id) ||
+                    $ticket->technician_id == null;
             }
 
             return $ticket->user_id === $user->id;
