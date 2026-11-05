@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketAnswered;
 use App\Models\Chat;
 use App\Models\Ticket;
 use Exception;
@@ -26,18 +27,20 @@ class ChatController extends Controller
                 'message' => $data['message'],
             ]);
 
+            TicketAnswered::dispatch($ticket, auth()->user());
+
             $ticket->assignTechnician($user);
 
             $ticket->changeStatus($user);
 
-            Log::info("Resposta $chat->id registrada para o ticket: $ticket_id | criado pelo usuario: $user->id");
+            Log::info("Resposta $chat->id registrada para o ticket: #$ticket_id | criado pelo usuario: $user->id");
 
             return redirect()->route('ticket.list')->with('success', 'Resposta cadastrada com sucesso!');
         } catch (Exception $e) {
             Log::error($e->getCode().' | '.$e->getMessage());
 
             return redirect()->route('ticket.list')
-                ->with('error', '(300) Não foi possível registrar a resposta, entre em contato com nosso suporte técnico!');
+                ->with('error', 'Não foi possível registrar a resposta, entre em contato com nosso suporte técnico!');
         }
     }
 }

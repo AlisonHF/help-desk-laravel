@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use Exception;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
     public function read(string $id)
     {
-        $notification = auth()->user()->notifications()->findOrFail($id);
+        try {
+            $notification = auth()->user()->notifications()->findOrFail($id);
 
-        $notification->markAsRead();
+            $notification->markAsRead();
 
-        return redirect()->back();
+            return redirect()->back();
+        } catch (Exception $e) {
+            Log::error($e->getCode().'|'.$e->getMessage(), [$e]);
+
+            return redirect()
+                ->back()
+                ->with('error', 'Não foi possível marcar como lida sua notificação, entre em contato com o suporte técnico');
+        }
     }
 
     public function readAll()
