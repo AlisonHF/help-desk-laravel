@@ -40,3 +40,6 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::get('notification/readAll', [NotificationController::class, 'readAll'])->name('notification.readall');
     Route::get('notification/', [NotificationController::class, 'list'])->name('notification.list');
 });
+
+// Evita erros ao acessar a pagina sem token
+Route::get('/reset-password', fn() => abort(404));
