@@ -17,8 +17,9 @@
                 <x-heroicon-o-bars-3 class="my-1.5 inline-block size-5" />
             </label>
             <div class="text-xl">
-                <a href="{{ route('home') }}" class="px-4 font-semibold">
-                    Help<span class="text-primary font-medium tracking-widest">Desk</span>
+                <a href="{{ route('home') }}" class="px-4 font-semibold flex items-center gap-2">
+                    <x-logo class="size-8" />
+                    <span>Help<span class="text-primary font-medium tracking-widest">Desk</span></span>
                 </a>
             </div>
         </div>
@@ -117,8 +118,9 @@
     @else
     <nav class="navbar w-full bg-base-100 border-b border-base-content/10">
         <div class="text-xl">
-            <a href="{{ route('home') }}" class="px-4 font-semibold">
-                Help<span class="text-primary font-medium tracking-widest">Desk</span>
+            <a href="{{ route('home') }}" class="px-4 font-semibold flex items-center gap-2">
+                <x-logo class="size-8" />
+                <span>Help<span class="text-primary font-medium tracking-widest">Desk</span></span>
             </a>
         </div>
     </nav>
